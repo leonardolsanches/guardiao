@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guarda do Theo - Calendário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
+                <h1>Guarda do Theo</h1>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('calendario') }}" class="active">📅 Calendário</a>
+                <a href="{{ url_for('conta') }}">💰 Conta Corrente</a>
+                <a href="{{ url_for('logout') }}">🚪 Sair</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="calendar-header">
+            <button id="btn-prev-month" class="btn-nav">← Mês Anterior</button>
+            <h2 id="calendar-title"></h2>
+            <button id="btn-next-month" class="btn-nav">Próximo Mês →</button>
+        </div>
+
+        <div class="calendar-analytics" id="calendar-analytics">
+            <!-- Analytics will be populated by JavaScript -->
+        </div>
+
+        <div class="calendar-legend">
+            <div class="legend-item"><span class="color-pai"></span> Leonardo (Pai)</div>
+            <div class="legend-item"><span class="color-mae"></span> Taciana (Mãe)</div>
+            <div class="legend-item"><span class="color-avos"></span> Avós Paternos</div>
+            <div class="legend-item"><span class="color-feriado"></span> Feriado</div>
+        </div>
+
+        <div class="calendar" id="calendar">
+            <div class="calendar-header-days">
+                <div class="day-header">Dom</div>
+                <div class="day-header">Seg</div>
+                <div class="day-header">Ter</div>
+                <div class="day-header">Qua</div>
+                <div class="day-header">Qui</div>
+                <div class="day-header">Sex</div>
+                <div class="day-header">Sáb</div>
+            </div>
+            <div class="calendar-days" id="calendar-days">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for editing day -->
+    <div id="modal-edit-day" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Editar Responsável</h3>
+            <form id="form-edit-day">
+                <input type="hidden" id="edit-date">
+                <div class="input-group">
+                    <label for="edit-responsavel">Responsável:</label>
+                    <select id="edit-responsavel" required>
+                        <option value="leonardo">Leonardo (Pai)</option>
+                        <option value="taciana">Taciana (Mãe)</option>
+                        <option value="avos_paternos">Avós Paternos</option>
+                        <option value="feriado">Feriado</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="edit-tipo">Tipo:</label>
+                    <select id="edit-tipo">
+                        <option value="planejado">Planejado</option>
+                        <option value="excecao">Exceção</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="edit-observacao">Observação:</label>
+                    <textarea id="edit-observacao" rows="3"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Initialize calendar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initCalendar();
+        });
+    </script>
+</body>
+</html>
