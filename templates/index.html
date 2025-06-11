@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guarda do Theo - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <div class="login-form">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="theo-logo">
+            </div>
+            <h1>Guarda do Theo</h1>
+            <p class="subtitle">Gerenciamento de guarda compartilhada</p>
+            
+            {% if erro %}
+                <div class="erro">{{ erro }}</div>
+            {% endif %}
+            
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="input-group">
+                    <label for="usuario">Usuário:</label>
+                    <select id="usuario" name="usuario" required>
+                        <option value="">Selecione...</option>
+                        <option value="leonardo">Leonardo (Pai)</option>
+                        <option value="taciana">Taciana (Mãe)</option>
+                        <option value="theo">Theo (Menor)</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
