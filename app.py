@@ -1,5 +1,5 @@
 ```python
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_file
+from flask import Flask, render_template, request, jsonify, send_file
 import json
 import os
 import csv
@@ -184,66 +184,199 @@ def init_data_files():
 
 init_data_files()
 
-# ... (restante do app.py permanece igual ao fornecido anteriormente, incluindo rotas para login, calendario, conta, APIs, upload, e exportação)
+@app.route('/')
+def index():
+    """Login page"""
+    return render_template('index.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    """Handle login authentication"""
+    usuario = request.form.get('usuario', '').lower()
+    senha = request.form.get('senha', '')
+    
+    usuarios = load_json_file('data/usuarios.json')
+    
+    if usuario in usuarios and usuarios[usuario]['senha'] == senha:
+        session['usuario'] = usuario
+        session['tipo'] = usuarios[usuario]['tipo']
+        return redirect(url_for('calendario'))
+    
+    return render_template('index.html', erro='Usuário ou senha inválidos')
+
+@app.route('/logout')
+def logout():
+    """Handle logout"""
+    session.clear()
+    return redirect(url_for('index'))
+
+@app.route('/calendario')
+def calendario():
+    """Calendar page"""
+    if 'usuario' not in session:
+        return redirect(url_for('index'))
+    
+    return render_template('calendario.html', usuario=session['usuario'], tipo=session['tipo'])
+
+@app.route('/conta')
+def conta():
+    """Financial account page"""
+    if 'usuario' not in session:
+        return redirect(url_for('index'))
+    
+    return render_template('conta.html', usuario=session['usuario'], tipo=session['tipo'])
+
+@app.route('/api/calendario/<int:ano>/<int:mes>')
+def api_calendario(ano, mes):
+    """API endpoint to get calendar data for specific month"""
+    calendario = load_json_file('data/calendario.json')
+    
+    # Filter data for the requested month
+    mes_data = {}
+    for data, info in calendario.items():
+        if data.startswith(f"{ano:04d}-{mes:02d}"):
+            mes_data[data] = info
+    
+    return jsonify(mes_data)
+
+@app.route('/api/calendario/salvar', methods=['POST'])
+def api_calendario_salvar():
+    """API endpoint to save calendar data"""
+    if 'usuario' not in session:
+        return jsonify({'erro': 'Não autorizado'}), 401
+    
+    data = request.json
+    calendario = load_json_file('data/calendario.json')
+    
+    data_str = data['data']
+    calendario[data_str] = {
+        'responsavel': data['responsavel'],
+        'tipo': data.get('tipo', 'planejado'),
+        'observacao': data.get('observacao', '')
+    }
+    
+    save_json_file('data/calendario.json', calendario)
+    return jsonify({'sucesso': True})
+
+@app.route('/api/despesas')
+def api_despesas():
+    """API endpoint to get expenses data"""
+    despesas = load_json_file('data/despesas.json', [])
+    return jsonify(despesas)
+
+@app.route('/api/despesas/salvar', methods=['POST'])
+def api_despesas_salvar():
+    """API endpoint to save expense data"""
+    if 'usuario' not in session:
+        return jsonify({'erro': 'Não autorizado'}), 401
+    
+    data = request.json
+    despesas = load_json_file('data/despesas.json', [])
+    
+    # Generate new ID
+    novo_id = max([d.get('id', 0) for d in despesas], default=0) + 1
+    
+    # Auto-validar despesas recorrentes
+    status = 'validado' if data.get('auto_validar') else 'pendente'
+    validado_por = session['usuario'] if data.get('auto_validar') else None
+    
+    nova_despesa = {
+        'id': novo_id,
+        'data': data['data'],
+        'descricao': data['descricao'],
+        'valor': float(data['valor']),
+        'pagador': data['pagador'],
+        'categoria': data['categoria'],
+        'tipo': data['tipo'],
+        'parcelas_total': data.get('parcelas_total'),
+        'parcela_atual': data.get('parcela_atual'),
+        'recorrente_ate': data.get('recorrente_ate'),
+        'status': status,
+        'anexo': data.get('anexo'),
+        'validado_por': validado_por
+    }
+    
+    despesas.append(nova_despesa)
+    save_json_file('data/despesas.json', despesas)
+    
+    return jsonify({'sucesso': True, 'id': novo_id})
+
+@app.route('/api/despesas/validar/<int:despesa_id>', methods=['POST'])
+def api_despesas_validar(despesa_id):
+    """API endpoint to validate expense"""
+    if 'usuario' not in session:
+        return jsonify({'erro': 'Não autorizado'}), 401
+    
+    despesas = load_json_file('data/despesas.json', [])
+    
+    for despesa in despesas:
+        if despesa['id'] == despesa_id:
+            despesa['status'] = 'validado'
+            despesa['validado_por'] = session['usuario']
+            break
+    
+    save_json_file('data/despesas.json', despesas)
+    return jsonify({'sucesso': True})
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    """Handle file upload for expense attachments"""
+    if 'usuario' not in session:
+        return jsonify({'erro': 'Não autorizado'}), 401
+    
+    if 'arquivo' not in request.files:
+        return jsonify({'erro': 'Nenhum arquivo selecionado'})
+    
+    file = request.files['arquivo']
+    if file.filename == '':
+        return jsonify({'erro': 'Nenhum arquivo selecionado'})
+    
+    if file:
+        filename = secure_filename(file.filename)
+        # Add timestamp to avoid conflicts
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S_')
+        filename = timestamp + filename
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return jsonify({'sucesso': True, 'filename': filename})
+
+# Export routes for Power BI integration
+@app.route('/export/despesas.csv')
+def export_despesas_csv():
+    """Export expenses to CSV for Power BI"""
+    despesas = load_json_file('data/despesas.json', [])
+    
+    csv_filename = 'export/despesas.csv'
+    with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+        if despesas:
+            fieldnames = despesas[0].keys()
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(despesas)
+    
+    return send_file(csv_filename, as_attachment=True, download_name='despesas.csv')
+
+@app.route('/export/calendario.csv')
+def export_calendario_csv():
+    """Export calendar to CSV for Power BI"""
+    calendario = load_json_file('data/calendario.json', {})
+    
+    csv_filename = 'export/calendario.csv'
+    with open(csv_filename, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['data', 'responsavel', 'tipo', 'observacao']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        for data, info in calendario.items():
+            row = {
+                'data': data,
+                'responsavel': info.get('responsavel', ''),
+                'tipo': info.get('tipo', ''),
+                'observacao': info.get('observacao', '')
+            }
+            writer.writerow(row)
+    
+    return send_file(csv_filename, as_attachment=True, download_name='calendario.csv')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
 ```
-
-### Passos para Resolver
-1. **Atualize o `app.py`**:
-   - Substitua o `app.py` no projeto Render pelo código acima, que inclui logs detalhados.
-   - Os logs ajudarão a identificar se o Excel está sendo encontrado, lido corretamente, e quais linhas estão sendo processadas ou ignoradas.
-
-2. **Confirme o `requirements.txt`**:
-   - Certifique-se de que contém:
-     ```
-     flask>=3.1.1
-     werkzeug>=3.1.3
-     pandas>=2.2.2
-     openpyxl>=3.1.2
-     gunicorn>=20.1.0
-     ```
-   - No Render, após atualizar o `requirements.txt`, force um redeploy para reinstalar as dependências.
-
-3. **Verifique o Excel**:
-   - Confirme que o arquivo está na raiz do projeto (ex.: `/Financial Records Excel (version 1).xlsx`).
-   - Abra o Excel localmente e verifique:
-     - As primeiras 65 linhas podem ser cabeçalhos ou metadados (o código pula essas linhas com `skiprows=65`).
-     - As colunas `day`, `month`, `year`, `expense`, `amount_paid`, `who_paid` existem após a linha 65.
-     - Se possível, compartilhe as primeiras linhas de dados (após a linha 65) ou a estrutura das colunas para confirmar se o `skiprows=65` é adequado.
-
-4. **Deploy no Render**:
-   - Faça upload do `app.py` atualizado, do Excel, e de outros arquivos necessários (`templates/`, `static/`, `data/` com `calendario.json` e `usuarios.json`).
-   - Configure o comando de inicialização: `gunicorn app:app`.
-   - Deploy o projeto.
-
-5. **Consulte os Logs no Render**:
-   - Após o deploy, acesse o painel do Render e vá para a seção de **Logs**.
-   - Procure por mensagens de depuração como:
-     - `Checking for Excel file: Financial Records Excel (version 1).xlsx`
-     - `Excel file not found: ...`
-     - `Excel rows read: <número>`
-     - `Added expense from row <índice>: <descrição>`
-     - `Imported <número> expenses to despesas.json`
-     - Ou erros como `Error reading Excel file: ...` ou `Error processing row <índice>: ...`.
-   - Compartilhe os logs relevantes para identificar o problema exato.
-
-6. **Teste a Tela "Conta Corrente"**:
-   - Acesse o aplicativo, faça login (ex.: `leonardo`, senha `leo123`), e vá para `/conta`.
-   - Verifique se a tabela de despesas está vazia ou contém dados inesperados. Se vazia, os logs indicarão por que a importação falhou.
-
-### Se o Problema Persistir
-- **Estrutura do Excel**: Se o `skiprows=65` for incorreto ou as colunas não corresponderem, a leitura falhará. Compartilhe a estrutura do Excel (ex.: nomes das colunas após a linha 65) para ajustar o código.
-- **Permissões no Render**: Confirme que a pasta `data` tem permissões de escrita (o Render geralmente gerencia isso automaticamente, mas vale verificar).
-- **Teste Local**: Execute o aplicativo localmente (`python app.py`) com o Excel na raiz e verifique os logs no terminal. Isso pode revelar erros que não aparecem no Render.
-
-### Alternativa: Carga Manual via Tela
-Se a carga automática continuar falhando, você pode preferir a carga manual via uma tela, conforme sugerido anteriormente. Posso fornecer o código completo para adicionar um formulário de upload em `conta.html` e uma rota `/upload_excel`. Indique se deseja essa solução.
-
-### Próximos Passos
-- Atualize o `app.py` com os logs e redeploy.
-- Compartilhe:
-  - Os logs do Render após o deploy.
-  - A estrutura do Excel (colunas e algumas linhas após a linha 65).
-  - Qualquer mensagem de erro observada.
-- Com essas informações, posso ajustar o código ou sugerir uma correção específica.
-
-Desculpe pelo inconveniente! Vamos resolver isso rapidamente.
