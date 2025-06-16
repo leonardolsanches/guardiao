@@ -1,10 +1,10 @@
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_file
 import json
 import os
 import csv
 from datetime import datetime
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = 'guarda_theo_secret_2025'
@@ -34,6 +34,107 @@ def save_json_file(filename, data):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
+def import_excel_data():
+    """Import historical expense data from Excel and merge with existing JSON"""
+    excel_file = 'Financial Records Excel (version 1).xlsx'
+    if not os.path.exists(excel_file):
+        return
+    
+    # Read Excel data
+    df = pd.read_excel(excel_file, sheet_name=0, skiprows=65)
+    
+    # Load existing expenses
+    despesas = load_json_file('data/despesas.json', [])
+    
+    # Get max ID from existing expenses
+    max_id = max([d.get('id', 0) for d in despesas], default=0)
+    
+    # Category mapping based on description
+    category_map = {
+        'escolaridade': 'educacao',
+        'material escolar': 'educacao',
+        'apostilas': 'educacao',
+        'livro': 'educacao',
+        'mensalidade': 'educacao',
+        'transporte escolar': 'transporte',
+        'alimentação': 'alimentacao',
+        'alimentos': 'alimentacao',
+        'almoço': 'alimentacao',
+        'celular': 'comunicacao',
+        'internet': 'comunicacao',
+        'recarga': 'comunicacao',
+        'plano de saude': 'saude',
+        'terapia': 'saude',
+        'dentista': 'saude',
+        'remedios': 'saude',
+        'roupas': 'vestuario',
+        'uniformes': 'vestuario',
+        'tênis': 'vestuario',
+        'bermudas': 'vestuario'
+    }
+    
+    # Process Excel data
+    for index, row in df.iterrows():
+        # Skip rows with invalid data
+        if pd.isna(row['day']) or pd.isna(row['month']) or pd.isna(row['year']) or pd.isna(row['expense']):
+            continue
+            
+        # Format date as YYYY-MM-DD
+        date_str = f"{int(row['year']):04d}-{int(row['month']):02d}-{int(row['day']):02d}"
+        
+        # Skip payment rows
+        if row['expense'].lower() == 'pagamento':
+            continue
+            
+        # Determine category
+        descricao = str(row['expense']).lower()
+        categoria = 'outros'
+        for key, value in category_map.items():
+            if key in descricao:
+                categoria = value
+                break
+        
+        # Determine tipo (recorrente, parcelada, or normal)
+        tipo = 'recorrente' if any(key in descricao for key in ['escolaridade', 'transporte escolar', 'alimentação', 'alimentos', 'celular', 'internet', 'recarga', 'plano de saude']) else 'normal'
+        
+        # Handle parcelas for Material Escolar
+        parcelas_total = None
+        parcela_atual = None
+        if 'material escolar' in descricao and '/' in descricao:
+            try:
+                parcela_info = descricao.split('/')[-1].strip()
+                parcela_atual = int(parcela_info)
+                parcelas_total = 10  # Assuming 10 parcels as per existing data
+                tipo = 'parcelada'
+            except ValueError:
+                pass
+        
+        nova_despesa = {
+            'id': max_id + 1,
+            'data': date_str,
+            'descricao': str(row['expense']),
+            'valor': float(row['amount_paid']),
+            'pagador': str(row['who_paid']).lower(),
+            'categoria': categoria,
+            'tipo': tipo,
+            'parcelas_total': parcelas_total,
+            'parcela_atual': parcela_atual,
+            'recorrente_ate': '2025-12-31' if tipo == 'recorrente' else None,
+            'status': 'validado',
+            'anexo': None,
+            'validado_por': str(row['who_paid']).lower()
+        }
+        
+        # Check for duplicates
+        if not any(d['data'] == nova_despesa['data'] and 
+                   d['descricao'] == nova_despesa['descricao'] and 
+                   d['valor'] == nova_despesa['valor'] for d in despesas):
+            despesas.append(nova_despesa)
+            max_id += 1
+    
+    # Save updated expenses
+    save_json_file('data/despesas.json', despesas)
+
 # Initialize data files
 def init_data_files():
     """Initialize default data files if they don't exist"""
@@ -55,6 +156,9 @@ def init_data_files():
     # Expenses data
     despesas = load_json_file('data/despesas.json', [])
     save_json_file('data/despesas.json', despesas)
+    
+    # Import Excel data
+    import_excel_data()
 
 init_data_files()
 
