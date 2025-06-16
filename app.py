@@ -35,7 +35,7 @@ def save_json_file(filename, data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 def import_excel_data():
-    """Import historical expense data from Excel and merge with existing JSON"""
+    """Import historical expense data from Excel, replacing existing JSON data"""
     excel_file = 'Financial Records Excel (version 1).xlsx'
     if not os.path.exists(excel_file):
         return
@@ -43,11 +43,9 @@ def import_excel_data():
     # Read Excel data
     df = pd.read_excel(excel_file, sheet_name=0, skiprows=65)
     
-    # Load existing expenses
-    despesas = load_json_file('data/despesas.json', [])
-    
-    # Get max ID from existing expenses
-    max_id = max([d.get('id', 0) for d in despesas], default=0)
+    # Initialize new expenses list (zero out existing data)
+    despesas = []
+    current_id = 0
     
     # Category mapping based on description
     category_map = {
@@ -110,7 +108,7 @@ def import_excel_data():
                 pass
         
         nova_despesa = {
-            'id': max_id + 1,
+            'id': current_id + 1,
             'data': date_str,
             'descricao': str(row['expense']),
             'valor': float(row['amount_paid']),
@@ -125,14 +123,10 @@ def import_excel_data():
             'validado_por': str(row['who_paid']).lower()
         }
         
-        # Check for duplicates
-        if not any(d['data'] == nova_despesa['data'] and 
-                   d['descricao'] == nova_despesa['descricao'] and 
-                   d['valor'] == nova_despesa['valor'] for d in despesas):
-            despesas.append(nova_despesa)
-            max_id += 1
+        despesas.append(nova_despesa)
+        current_id += 1
     
-    # Save updated expenses
+    # Save new expenses, overwriting existing file
     save_json_file('data/despesas.json', despesas)
 
 # Initialize data files
@@ -153,11 +147,8 @@ def init_data_files():
     calendario = load_json_file('data/calendario.json', {})
     save_json_file('data/calendario.json', calendario)
     
-    # Expenses data
-    despesas = load_json_file('data/despesas.json', [])
-    save_json_file('data/despesas.json', despesas)
-    
-    # Import Excel data
+    # Expenses data (reset and import from Excel)
+    save_json_file('data/despesas.json', [])  # Zero out despesas.json
     import_excel_data()
 
 init_data_files()
