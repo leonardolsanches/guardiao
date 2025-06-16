@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,18 +8,16 @@
 </head>
 <body class="login-body">
     <div class="login-container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='theo_logo.png') }}" alt="Theo" class="theo-logo">
+        </div>
         <div class="login-form">
-            <div class="logo-container">
-                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="theo-logo">
-            </div>
             <h1>Guarda do Theo</h1>
             <p class="subtitle">Gerenciamento de guarda compartilhada</p>
-            
             {% if erro %}
                 <div class="erro">{{ erro }}</div>
             {% endif %}
-            
-            <form method="POST" action="{{ url_for('login') }}">
+            <form action="{{ url_for('login') }}" method="POST">
                 <div class="input-group">
                     <label for="usuario">Usuário:</label>
                     <select id="usuario" name="usuario" required>
@@ -30,12 +27,10 @@
                         <option value="theo">Theo (Menor)</option>
                     </select>
                 </div>
-                
                 <div class="input-group">
                     <label for="senha">Senha:</label>
                     <input type="password" id="senha" name="senha" required>
                 </div>
-                
                 <button type="submit" class="btn-primary">Entrar</button>
             </form>
         </div>
