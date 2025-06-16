@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guarda do Theo - Calendário</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
+                <img src="{{ url_for('static', filename='theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
                 <h1>Guarda do Theo</h1>
             </div>
             <div class="nav-links">
@@ -29,9 +29,7 @@
             <button id="btn-next-month" class="btn-nav">Próximo Mês →</button>
         </div>
 
-        <div class="calendar-analytics" id="calendar-analytics">
-            <!-- Analytics will be populated by JavaScript -->
-        </div>
+        <div id="calendar-analytics" class="calendar-analytics"></div>
 
         <div class="calendar-legend">
             <div class="legend-item"><span class="color-pai"></span> Leonardo (Pai)</div>
@@ -40,7 +38,7 @@
             <div class="legend-item"><span class="color-feriado"></span> Feriado</div>
         </div>
 
-        <div class="calendar" id="calendar">
+        <div class="calendar">
             <div class="calendar-header-days">
                 <div class="day-header">Dom</div>
                 <div class="day-header">Seg</div>
@@ -50,22 +48,22 @@
                 <div class="day-header">Sex</div>
                 <div class="day-header">Sáb</div>
             </div>
-            <div class="calendar-days" id="calendar-days">
-                <!-- Days will be populated by JavaScript -->
-            </div>
+            <div id="calendar-days" class="calendar-days"></div>
         </div>
     </div>
 
-    <!-- Modal for editing day -->
     <div id="modal-edit-day" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3>Editar Responsável</h3>
+            <h2>Editar Responsável</h2>
             <form id="form-edit-day">
-                <input type="hidden" id="edit-date">
+                <div class="input-group">
+                    <label for="edit-date">Data:</label>
+                    <input type="date" id="edit-date" name="data" readonly>
+                </div>
                 <div class="input-group">
                     <label for="edit-responsavel">Responsável:</label>
-                    <select id="edit-responsavel" required>
+                    <select id="edit-responsavel" name="responsavel">
                         <option value="leonardo">Leonardo (Pai)</option>
                         <option value="taciana">Taciana (Mãe)</option>
                         <option value="avos_paternos">Avós Paternos</option>
@@ -74,14 +72,14 @@
                 </div>
                 <div class="input-group">
                     <label for="edit-tipo">Tipo:</label>
-                    <select id="edit-tipo">
+                    <select id="edit-tipo" name="tipo">
                         <option value="planejado">Planejado</option>
                         <option value="excecao">Exceção</option>
                     </select>
                 </div>
                 <div class="input-group">
                     <label for="edit-observacao">Observação:</label>
-                    <textarea id="edit-observacao" rows="3"></textarea>
+                    <textarea id="edit-observacao" name="observacao"></textarea>
                 </div>
                 <div class="modal-buttons">
                     <button type="button" class="btn-secondary" onclick="closeModal()">Cancelar</button>
@@ -90,13 +88,5 @@
             </form>
         </div>
     </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        // Initialize calendar functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            initCalendar();
-        });
-    </script>
 </body>
 </html>
