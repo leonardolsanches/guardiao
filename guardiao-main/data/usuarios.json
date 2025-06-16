@@ -1,0 +1,14 @@
+{
+  "leonardo": {
+    "tipo": "pai",
+    "senha": "leo123"
+  },
+  "taciana": {
+    "tipo": "mae",
+    "senha": "taci123"
+  },
+  "theo": {
+    "tipo": "menor",
+    "senha": "theo2025"
+  }
+}
