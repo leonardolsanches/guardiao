@@ -61,6 +61,9 @@ def import_excel_data():
         df = pd.read_excel(excel_file, sheet_name=0, skiprows=65)
         logger.debug(f"Excel rows read: {len(df)}")
         
+        # Log column names for debugging
+        logger.debug(f"Excel columns: {list(df.columns)}")
+        
         # Initialize new expenses list (zero out existing data)
         despesas = []
         current_id = 0
@@ -380,80 +383,3 @@ def export_calendario_csv():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 ```
-
-2. **Atualize o Repositório GitHub**:
-   - No repositório `leonardolsanches/guardiao`, substitua o `app.py` existente pelo código acima.
-   - Certifique-se de que os outros arquivos estão corretos:
-     - `/templates/index.html`, `/templates/calendario.html`, `/templates/conta.html` (use as versões corrigidas fornecidas anteriormente).
-     - `/static/style.css`, `/static/script.js`.
-     - `/data/calendario.json`, `/data/usuarios.json`.
-     - `/Financial Records Excel (version 1).xlsx` na raiz.
-     - `/requirements.txt` com:
-       ```
-       flask>=3.1.1
-       werkzeug>=3.1.3
-       pandas>=2.2.2
-       openpyxl>=3.1.2
-       gunicorn>=20.1.0
-       ```
-   - Commit e push as alterações:
-     ```bash
-     git add app.py requirements.txt
-     git commit -m "Corrige app.py removendo marcações Markdown e mantém logs"
-     git push origin main
-     ```
-
-3. **Confirme o Comando de Inicialização no Render**:
-   - No painel do Render, verifique que o comando de inicialização está configurado como:
-     ```
-     gunicorn app:app
-     ```
-   - Se estiver diferente, atualize nas configurações do serviço.
-
-4. **Redeploy no Render**:
-   - No painel do Render, acione um redeploy manual para puxar as alterações do commit mais recente (`main` branch, commit `42060430296ebed7233adb74a280755a09d6a8b0` ou posterior).
-   - Monitore os logs do deploy para confirmar que não há erros de sintaxe.
-
-5. **Verifique a Carga do Excel**:
-   - Após o deploy, acesse os logs do Render e procure por mensagens como:
-     - `Checking for Excel file: Financial Records Excel (version 1).xlsx`
-     - `Excel rows read: <número>`
-     - `Imported <número> expenses to despesas.json`
-     - Ou erros como `Excel file not found` ou `Error reading Excel file`.
-   - Acesse o aplicativo, faça login (ex.: `leonardo`, senha `leo123`), e vá para a tela **"Conta Corrente"** (`/conta`) para verificar se as despesas do Excel foram carregadas.
-
-### Resolvendo o Problema de Carga do Excel
-Se, após corrigir o `app.py`, os dados do Excel ainda não carregarem:
-- **Confirme o Excel**:
-  - Verifique se `Financial Records Excel (version 1).xlsx` está na raiz do repositório GitHub e foi incluído no commit.
-  - Confirme que o arquivo tem as colunas `day`, `month`, `year`, `expense`, `amount_paid`, `who_paid` após a linha 65 (devido a `skiprows=65`).
-  - Se possível, compartilhe a estrutura do Excel (nomes das colunas e algumas linhas após a linha 65) para ajustar o `skiprows` ou o mapeamento de colunas.
-
-- **Cheque os Logs**:
-  - Os logs do Render mostrarão se o Excel foi encontrado e quantas linhas foram lidas. Compartilhe os logs relevantes para diagnosticar.
-
-- **Teste Local**:
-  - Clone o repositório localmente:
-    ```bash
-    git clone https://github.com/leonardolsanches/guardiao
-    cd guardiao
-    ```
-  - Instale as dependências:
-    ```bash
-    pip install -r requirements.txt
-    ```
-  - Coloque o Excel na raiz e execute:
-    ```bash
-    python app.py
-    ```
-  - Verifique os logs no terminal para mensagens de depuração.
-
-### Se Precisar de Carga Manual
-Se preferir evitar a carga automática e adicionar uma tela para upload manual do Excel, posso fornecer o código para um formulário em `conta.html` e uma rota `/upload_excel`. Indique se deseja essa funcionalidade.
-
-### Próximos Passos
-- Atualize o `app.py` no repositório GitHub e faça o push.
-- Redeploy no Render e compartilhe os novos logs se houver erros ou se o Excel não carregar.
-- Forneça a estrutura do Excel para confirmar o `skiprows=65` e o mapeamento de colunas.
-
-Desculpe pela confusão com o Markdown! Com essas correções, o deploy deve funcionar, e podemos resolver a carga do Excel.
