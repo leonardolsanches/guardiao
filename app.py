@@ -1,16 +1,9 @@
-```python
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_file
 import json
 import os
 import csv
-import logging
 from datetime import datetime
 from werkzeug.utils import secure_filename
-import pandas as pd
-
-# Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.secret_key = 'guarda_theo_secret_2025'
@@ -31,10 +24,8 @@ def load_json_file(filename, default_data=None):
     
     try:
         with open(filename, 'r', encoding='utf-8') as f:
-            logger.debug(f"Loaded JSON file: {filename}")
             return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        logger.error(f"Error loading JSON file {filename}: {e}")
+    except (FileNotFoundError, json.JSONDecodeError):
         return default_data
 
 def save_json_file(filename, data):
@@ -42,131 +33,12 @@ def save_json_file(filename, data):
     try:
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-            logger.debug(f"Saved JSON file: {filename}")
     except Exception as e:
-        logger.error(f"Error saving JSON file {filename}: {e}")
-
-def import_excel_data():
-    """Import historical expense data from Excel, replacing existing JSON data"""
-    excel_file = 'Financial Records Excel (version 1).xlsx'
-    logger.debug(f"Checking for Excel file: {excel_file}")
-    
-    if not os.path.exists(excel_file):
-        logger.error(f"Excel file not found: {excel_file}")
-        return
-    
-    try:
-        # Read Excel data
-        logger.debug("Reading Excel file")
-        df = pd.read_excel(excel_file, sheet_name=0, skiprows=65)
-        logger.debug(f"Excel rows read: {len(df)}")
-        
-        # Log column names for debugging
-        logger.debug(f"Excel columns: {list(df.columns)}")
-        
-        # Initialize new expenses list (zero out existing data)
-        despesas = []
-        current_id = 0
-        
-        # Category mapping based on description
-        category_map = {
-            'escolaridade': 'educacao',
-            'material escolar': 'educacao',
-            'apostilas': 'educacao',
-            'livro': 'educacao',
-            'mensalidade': 'educacao',
-            'transporte escolar': 'transporte',
-            'alimentação': 'alimentacao',
-            'alimentos': 'alimentacao',
-            'almoço': 'alimentacao',
-            'celular': 'comunicacao',
-            'internet': 'comunicacao',
-            'recarga': 'comunicacao',
-            'plano de saude': 'saude',
-            'terapia': 'saude',
-            'dentista': 'saude',
-            'remedios': 'saude',
-            'roupas': 'vestuario',
-            'uniformes': 'vestuario',
-            'tênis': 'vestuario',
-            'bermudas': 'vestuario'
-        }
-        
-        # Process Excel data
-        for index, row in df.iterrows():
-            try:
-                # Skip rows with invalid data
-                if pd.isna(row['day']) or pd.isna(row['month']) or pd.isna(row['year']) or pd.isna(row['expense']):
-                    logger.debug(f"Skipping row {index}: missing required fields")
-                    continue
-                
-                # Format date as YYYY-MM-DD
-                date_str = f"{int(row['year']):04d}-{int(row['month']):02d}-{int(row['day']):02d}"
-                
-                # Skip payment rows
-                if str(row['expense']).lower() == 'pagamento':
-                    logger.debug(f"Skipping row {index}: payment row")
-                    continue
-                
-                # Determine category
-                descricao = str(row['expense']).lower()
-                categoria = 'outros'
-                for key, value in category_map.items():
-                    if key in descricao:
-                        categoria = value
-                        break
-                
-                # Determine tipo (recorrente, parcelada, or normal)
-                tipo = 'recorrente' if any(key in descricao for key in ['escolaridade', 'transporte escolar', 'alimentação', 'alimentos', 'celular', 'internet', 'recarga', 'plano de saude']) else 'normal'
-                
-                # Handle parcelas for Material Escolar
-                parcelas_total = None
-                parcela_atual = None
-                if 'material escolar' in descricao and '/' in descricao:
-                    try:
-                        parcela_info = descricao.split('/')[-1].strip()
-                        parcela_atual = int(parcela_info)
-                        parcelas_total = 10  # Assuming 10 parcels as per existing data
-                        tipo = 'parcelada'
-                    except ValueError:
-                        logger.warning(f"Invalid parcel info in row {index}: {descricao}")
-                
-                nova_despesa = {
-                    'id': current_id + 1,
-                    'data': date_str,
-                    'descricao': str(row['expense']),
-                    'valor': float(row['amount_paid']),
-                    'pagador': str(row['who_paid']).lower(),
-                    'categoria': categoria,
-                    'tipo': tipo,
-                    'parcelas_total': parcelas_total,
-                    'parcela_atual': parcela_atual,
-                    'recorrente_ate': '2025-12-31' if tipo == 'recorrente' else None,
-                    'status': 'validado',
-                    'anexo': None,
-                    'validado_por': str(row['who_paid']).lower()
-                }
-                
-                despesas.append(nova_despesa)
-                current_id += 1
-                logger.debug(f"Added expense from row {index}: {nova_despesa['descricao']}")
-            
-            except Exception as e:
-                logger.error(f"Error processing row {index}: {e}")
-                continue
-        
-        # Save new expenses, overwriting existing file
-        save_json_file('data/despesas.json', despesas)
-        logger.info(f"Imported {len(despesas)} expenses to despesas.json")
-        
-    except Exception as e:
-        logger.error(f"Error reading Excel file: {e}")
+        print(f"Error saving JSON file {filename}: {e}")
 
 # Initialize data files
 def init_data_files():
     """Initialize default data files if they don't exist"""
-    logger.debug("Initializing data files")
-    
     # Users data
     usuarios_default = {
         "leonardo": {"tipo": "pai", "senha": "leo123"},
@@ -181,9 +53,9 @@ def init_data_files():
     calendario = load_json_file('data/calendario.json', {})
     save_json_file('data/calendario.json', calendario)
     
-    # Expenses data (reset and import from Excel)
-    save_json_file('data/despesas.json', [])  # Zero out despesas.json
-    import_excel_data()
+    # Expenses data
+    despesas = load_json_file('data/despesas.json', [])
+    save_json_file('data/despesas.json', despesas)
 
 init_data_files()
 
@@ -383,3 +255,192 @@ def export_calendario_csv():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 ```
+
+#### 2. `despesas.json` (com dados simulados do Excel)
+Como os dados exatos do `Financial Records Excel (version 1).xlsx` não foram fornecidos, gerei um `despesas.json` com exemplos baseados nas descrições anteriores (ex.: despesas de escolaridade, material escolar, alimentação) e no mapeamento de categorias/tipos definido no `app.py` original. O arquivo inclui:
+- Despesas com IDs sequenciais.
+- Formato de data `YYYY-MM-DD`.
+- Categorias mapeadas (ex.: "escolaridade" → "educacao").
+- Tipos (`recorrente`, `parcelada`, `normal`).
+- Parcelas para "material escolar" (assumindo 10 parcelas).
+- Status "validado" e campos `anexo` como `null`.
+
+Se você fornecer linhas específicas do Excel, posso gerar um `despesas.json` mais preciso.
+
+<xaiArtifact artifact_id="e7191fbc-194d-413a-840f-b19f982e8d9e" artifact_version_id="4fe84db6-d0fa-4962-88bb-dedda8439193" title="despesas.json" contentType="application/json">
+```json
+[
+    {
+        "id": 1,
+        "data": "2025-01-10",
+        "descricao": "Mensalidade Escolaridade",
+        "valor": 1200.00,
+        "pagador": "leonardo",
+        "categoria": "educacao",
+        "tipo": "recorrente",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": "2025-12-31",
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "leonardo"
+    },
+    {
+        "id": 2,
+        "data": "2025-01-15",
+        "descricao": "Material Escolar 1/10",
+        "valor": 150.00,
+        "pagador": "taciana",
+        "categoria": "educacao",
+        "tipo": "parcelada",
+        "parcelas_total": 10,
+        "parcela_atual": 1,
+        "recorrente_ate": null,
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "taciana"
+    },
+    {
+        "id": 3,
+        "data": "2025-02-15",
+        "descricao": "Material Escolar 2/10",
+        "valor": 150.00,
+        "pagador": "taciana",
+        "categoria": "educacao",
+        "tipo": "parcelada",
+        "parcelas_total": 10,
+        "parcela_atual": 2,
+        "recorrente_ate": null,
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "taciana"
+    },
+    {
+        "id": 4,
+        "data": "2025-01-20",
+        "descricao": "Transporte Escolar",
+        "valor": 300.00,
+        "pagador": "leonardo",
+        "categoria": "transporte",
+        "tipo": "recorrente",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": "2025-12-31",
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "leonardo"
+    },
+    {
+        "id": 5,
+        "data": "2025-01-25",
+        "descricao": "Almoço Escolar",
+        "valor": 50.00,
+        "pagador": "taciana",
+        "categoria": "alimentacao",
+        "tipo": "recorrente",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": "2025-12-31",
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "taciana"
+    },
+    {
+        "id": 6,
+        "data": "2025-02-01",
+        "descricao": "Plano de Saúde",
+        "valor": 500.00,
+        "pagador": "leonardo",
+        "categoria": "saude",
+        "tipo": "recorrente",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": "2025-12-31",
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "leonardo"
+    },
+    {
+        "id": 7,
+        "data": "2025-02-05",
+        "descricao": "Tênis Novo",
+        "valor": 200.00,
+        "pagador": "taciana",
+        "categoria": "vestuario",
+        "tipo": "normal",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": null,
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "taciana"
+    },
+    {
+        "id": 8,
+        "data": "2025-02-10",
+        "descricao": "Recarga Celular",
+        "valor": 30.00,
+        "pagador": "leonardo",
+        "categoria": "comunicacao",
+        "tipo": "recorrente",
+        "parcelas_total": null,
+        "parcela_atual": null,
+        "recorrente_ate": "2025-12-31",
+        "status": "validado",
+        "anexo": null,
+        "validado_por": "leonardo"
+    }
+]
+```
+
+### Instruções para Upload e Deploy
+1. **Atualize o Repositório GitHub**:
+   - No repositório `leonardolsanches/guardiao`, substitua o `app.py` pelo código acima.
+   - Adicione o `despesas.json` na pasta `data` (`/data/despesas.json`).
+   - Remova o `Financial Records Excel (version 1).xlsx` da raiz, já que não será mais usado.
+   - Confirme que os outros arquivos estão corretos:
+     - `/templates/index.html`, `/templates/calendario.html`, `/templates/conta.html`
+     - `/static/style.css`, `/static/script.js`
+     - `/data/calendario.json`, `/data/usuarios.json`
+   - Atualize o `requirements.txt` para remover dependências desnecessárias:
+     ```
+     flask>=3.1.1
+     werkzeug>=3.1.3
+     gunicorn>=20.1.0
+     ```
+   - Commit e push as alterações:
+     ```bash
+     git add app.py data/despesas.json requirements.txt
+     git rm "Financial Records Excel (version 1).xlsx"
+     git commit -m "Remove Excel import, add despesas.json with preloaded data"
+     git push origin main
+     ```
+
+2. **Confirme a Configuração no Render**:
+   - No painel do Render, verifique que o comando de inicialização é:
+     ```
+     gunicorn app:app
+     ```
+   - Certifique-se de que o branch configurado é `main`.
+
+3. **Redeploy no Render**:
+   - Acione um redeploy manual no Render para puxar as alterações.
+   - Monitore os logs do deploy para confirmar que não há erros de sintaxe e que o aplicativo inicia corretamente.
+
+4. **Teste o Aplicativo**:
+   - Acesse o aplicativo, faça login (ex.: `leonardo`, senha `leo123`), e vá para a tela **"Conta Corrente"** (`/conta`).
+   - Verifique se as despesas do `despesas.json` aparecem na tabela, organizadas por mês.
+   - Teste a adição de novas despesas via interface para confirmar que o `despesas.json` é atualizado corretamente.
+
+### Observações sobre o `despesas.json`
+- O `despesas.json` acima é baseado em exemplos genéricos, já que os dados exatos do Excel não foram fornecidos. Ele inclui 8 despesas variadas para teste.
+- Se você compartilhar linhas específicas do Excel (ex.: `day`, `month`, `year`, `expense`, `amount_paid`, `who_paid`), posso gerar um `despesas.json` com os dados exatos.
+- O arquivo respeita o mapeamento de categorias e tipos definido anteriormente (ex.: "material escolar" como `parcelada`, "escolaridade" como `recorrente`).
+
+### Próximos Passos
+- Faça upload do `app.py` e `despesas.json` no repositório e remova o Excel.
+- Redeploy no Render e compartilhe os logs se houver erros.
+- Se desejar um `despesas.json` com dados específicos do Excel, envie algumas linhas de exemplo.
+- Caso queira adicionar uma funcionalidade para upload manual de Excel no futuro, posso fornecer o código.
+
+Desculpe pelos problemas com a importação automática! Essa abordagem com o `despesas.json` pré-carregado deve simplificar o deploy e resolver o problema.
