@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guarda do Theo - Conta Corrente</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
+                <img src="{{ url_for('static', filename='theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
                 <h1>Guarda do Theo</h1>
             </div>
             <div class="nav-links">
@@ -28,81 +29,85 @@
         </div>
 
         <div class="resumo-financeiro">
-            <div class="resumo-card historico">
+            <div class="resumo-card">
                 <h3>Saldo Histórico</h3>
-                <div class="valor" id="saldo-historico">R$ 6.053,75</div>
-                <small>Taciana deve a Leonardo</small>
+                <div class="valor" id="saldo-historico">R$ 0,00</div>
             </div>
         </div>
 
         <div class="resumo-anual">
             <h3>📊 Resumo Anual 2025 por Categoria</h3>
-            <div id="resumo-categorias" class="categorias-grid">
-                <!-- Será preenchido pelo JavaScript -->
-            </div>
+            <div id="resumo-categorias" class="categorias-grid"></div>
         </div>
 
         <div class="filters">
-            <input type="text" id="filter-descricao" placeholder="Buscar por descrição...">
-            <select id="filter-categoria">
-                <option value="">Todas as categorias</option>
-                <option value="educacao">Educação</option>
-                <option value="saude">Saúde</option>
-                <option value="alimentacao">Alimentação</option>
-                <option value="transporte">Transporte</option>
-                <option value="comunicacao">Comunicação</option>
-                <option value="lazer">Lazer</option>
-                <option value="vestuario">Vestuário</option>
-                <option value="outros">Outros</option>
-            </select>
-            <select id="filter-status">
-                <option value="">Todos os status</option>
-                <option value="pendente">Pendente</option>
-                <option value="validado">Validado</option>
-            </select>
-            <select id="filter-mes">
-                <option value="">Todos os meses</option>
-            </select>
+            <div class="input-group">
+                <label for="filter-descricao">Descrição:</label>
+                <input type="text" id="filter-descricao" placeholder="Filtrar por descrição">
+            </div>
+            <div class="input-group">
+                <label for="filter-categoria">Categoria:</label>
+                <select id="filter-categoria">
+                    <option value="">Todas as categorias</option>
+                    <option value="educacao">Educação</option>
+                    <option value="saude">Saúde</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="comunicacao">Comunicação</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="vestuario">Vestuário</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="filter-status">Status:</label>
+                <select id="filter-status">
+                    <option value="">Todos os status</option>
+                    <option value="pendente">Pendente</option>
+                    <option value="validado">Validado</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="filter-mes">Mês:</label>
+                <select id="filter-mes">
+                    <option value="">Todos os meses</option>
+                </select>
+            </div>
         </div>
 
-        <div class="despesas-tabela" id="despesas-tabela">
-            <!-- Monthly table will be populated by JavaScript -->
-        </div>
+        <div id="despesas-tabela" class="despesas-lista"></div>
     </div>
 
-    <!-- Modal for new/edit expense -->
     <div id="modal-despesa" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h3 id="modal-title">Nova Despesa</h3>
-            <form id="form-despesa">
+            <h2 id="modal-title">Nova Despesa</h2>
+            <form id="form-despesa" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="input-group">
                         <label for="despesa-data">Data:</label>
-                        <input type="date" id="despesa-data" required>
+                        <input type="date" id="despesa-data" name="data" required>
                     </div>
                     <div class="input-group">
                         <label for="despesa-valor">Valor:</label>
-                        <input type="number" id="despesa-valor" step="0.01" min="0" required>
+                        <input type="number" id="despesa-valor" name="valor" step="0.01" required>
                     </div>
                 </div>
-
                 <div class="input-group">
                     <label for="despesa-descricao">Descrição:</label>
-                    <input type="text" id="despesa-descricao" required>
+                    <input type="text" id="despesa-descricao" name="descricao" required>
                 </div>
-
                 <div class="form-row">
                     <div class="input-group">
                         <label for="despesa-pagador">Pagador:</label>
-                        <select id="despesa-pagador" required>
+                        <select id="despesa-pagador" name="pagador" required>
                             <option value="leonardo">Leonardo</option>
                             <option value="taciana">Taciana</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label for="despesa-categoria">Categoria:</label>
-                        <select id="despesa-categoria" required>
+                        <select id="despesa-categoria" name="categoria" required>
                             <option value="educacao">Educação</option>
                             <option value="saude">Saúde</option>
                             <option value="alimentacao">Alimentação</option>
@@ -114,41 +119,32 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="input-group">
                     <label for="despesa-tipo">Tipo:</label>
-                    <select id="despesa-tipo" required>
-                        <option value="unica">Única</option>
+                    <select id="despesa-tipo" name="tipo" required>
+                        <option value="normal">Única</option>
                         <option value="parcelada">Parcelada</option>
                         <option value="recorrente">Recorrente</option>
                     </select>
                 </div>
-
-                <div id="parcelamento-fields" class="hidden">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="parcelas-total">Total de Parcelas:</label>
-                            <input type="number" id="parcelas-total" min="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="parcela-atual">Parcela Atual:</label>
-                            <input type="number" id="parcela-atual" min="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="recorrencia-fields" class="hidden">
+                <div id="parcelamento-fields" class="form-row hidden">
                     <div class="input-group">
-                        <label for="recorrente-ate">Recorrente até:</label>
-                        <input type="date" id="recorrente-ate">
+                        <label for="parcelas-total">Total de Parcelas:</label>
+                        <input type="number" id="parcelas-total" name="parcelas_total">
+                    </div>
+                    <div class="input-group">
+                        <label for="parcela-atual">Parcela Atual:</label>
+                        <input type="number" id="parcela-atual" name="parcela_atual">
                     </div>
                 </div>
-
+                <div id="recorrencia-fields" class="input-group hidden">
+                    <label for="recorrente-ate">Recorrente até:</label>
+                    <input type="date" id="recorrente-ate" name="recorrente_ate">
+                </div>
                 <div class="input-group">
                     <label for="despesa-anexo">Anexo:</label>
-                    <input type="file" id="despesa-anexo" accept="image/*,.pdf">
+                    <input type="file" id="despesa-anexo" name="anexo">
                 </div>
-
                 <div class="modal-buttons">
                     <button type="button" class="btn-secondary" onclick="closeModalDespesa()">Cancelar</button>
                     <button type="submit" class="btn-primary">Salvar</button>
@@ -156,13 +152,5 @@
             </form>
         </div>
     </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
-        // Initialize financial functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            initConta();
-        });
-    </script>
 </body>
 </html>
