@@ -1,164 +1,151 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guarda do Theo - Conta Corrente</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guarda do Theo - Conta Corrente</title>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
-                <h1>Guarda do Theo</h1>
-            </div>
-            <div class="nav-links">
-                <a href="{{ url_for('calendario') }}">📅 Calendário</a>
-                <a href="{{ url_for('conta') }}" class="active">💰 Conta Corrente</a>
-                <a href="{{ url_for('logout') }}">🚪 Sair</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="conta-header">
-            <h2>💰 Conta Corrente</h2>
-            <button id="btn-nova-despesa" class="btn-primary">+ Nova Despesa</button>
-        </div>
-
-        <div class="resumo-financeiro">
-            <div class="resumo-card historico">
-                <h3>Saldo Histórico</h3>
-                <div class="valor" id="saldo-historico">R$ 6.053,75</div>
-                <small>Taciana deve a Leonardo</small>
-            </div>
-        </div>
-
-        <div class="resumo-anual">
-            <h3>📊 Resumo Anual 2025 por Categoria</h3>
-            <div id="resumo-categorias" class="categorias-grid">
-                <!-- Será preenchido pelo JavaScript -->
-            </div>
-        </div>
-
-        <div class="filters">
-            <input type="text" id="filter-descricao" placeholder="Buscar por descrição...">
-            <select id="filter-categoria">
-                <option value="">Todas as categorias</option>
-                <option value="educacao">Educação</option>
-                <option value="saude">Saúde</option>
-                <option value="alimentacao">Alimentação</option>
-                <option value="transporte">Transporte</option>
-                <option value="comunicacao">Comunicação</option>
-                <option value="lazer">Lazer</option>
-                <option value="vestuario">Vestuário</option>
-                <option value="outros">Outros</option>
-            </select>
-            <select id="filter-status">
-                <option value="">Todos os status</option>
-                <option value="pendente">Pendente</option>
-                <option value="validado">Validado</option>
-            </select>
-            <select id="filter-mes">
-                <option value="">Todos os meses</option>
-            </select>
-        </div>
-
-        <div class="despesas-tabela" id="despesas-tabela">
-            <!-- Monthly table will be populated by JavaScript -->
-        </div>
-    </div>
-
-    <!-- Modal for new/edit expense -->
-    <div id="modal-despesa" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3 id="modal-title">Nova Despesa</h3>
-            <form id="form-despesa">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="despesa-data">Data:</label>
-                        <input type="date" id="despesa-data" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="despesa-valor">Valor:</label>
-                        <input type="number" id="despesa-valor" step="0.01" min="0" required>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="despesa-descricao">Descrição:</label>
-                    <input type="text" id="despesa-descricao" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="despesa-pagador">Pagador:</label>
-                        <select id="despesa-pagador" required>
-                            <option value="leonardo">Leonardo</option>
-                            <option value="taciana">Taciana</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="despesa-categoria">Categoria:</label>
-                        <select id="despesa-categoria" required>
-                            <option value="educacao">Educação</option>
-                            <option value="saude">Saúde</option>
-                            <option value="alimentacao">Alimentação</option>
-                            <option value="transporte">Transporte</option>
-                            <option value="comunicacao">Comunicação</option>
-                            <option value="lazer">Lazer</option>
-                            <option value="vestuario">Vestuário</option>
-                            <option value="outros">Outros</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="despesa-tipo">Tipo:</label>
-                    <select id="despesa-tipo" required>
-                        <option value="unica">Única</option>
-                        <option value="parcelada">Parcelada</option>
-                        <option value="recorrente">Recorrente</option>
-                    </select>
-                </div>
-
-                <div id="parcelamento-fields" class="hidden">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="parcelas-total">Total de Parcelas:</label>
-                            <input type="number" id="parcelas-total" min="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="parcela-atual">Parcela Atual:</label>
-                            <input type="number" id="parcela-atual" min="1">
-                        </div>
-                    </div>
-                </div>
-
-                <div id="recorrencia-fields" class="hidden">
-                    <div class="input-group">
-                        <label for="recorrente-ate">Recorrente até:</label>
-                        <input type="date" id="recorrente-ate">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="despesa-anexo">Anexo:</label>
-                    <input type="file" id="despesa-anexo" accept="image/*,.pdf">
-                </div>
-
-                <div class="modal-buttons">
-                    <button type="button" class="btn-secondary" onclick="closeModalDespesa()">Cancelar</button>
-                    <button type="submit" class="btn-primary">Salvar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <script>
+<body><div id="resumo"></div>
+<nav class="navbar">
+<div class="nav-container">
+<div class="nav-logo">
+<img alt="Theo" class="nav-theo-logo" src="{{ url_for('static', filename='uploads/theo_logo.png') }}"/>
+<h1>Guarda do Theo</h1>
+</div>
+<div class="nav-links">
+<a href="{{ url_for('calendario') }}">📅 Calendário</a>
+<a class="active" href="{{ url_for('conta') }}">💰 Conta Corrente</a>
+<a href="{{ url_for('logout') }}">🚪 Sair</a>
+</div>
+</div>
+</nav>
+<div class="container">
+<div class="conta-header">
+<h2>💰 Conta Corrente</h2>
+<button class="btn-primary" id="btn-nova-despesa">+ Nova Despesa</button>
+</div>
+<div class="resumo-financeiro">
+<div class="resumo-card historico">
+<h3>Saldo Histórico</h3>
+<div class="valor" id="saldo-historico">R$ 6.053,75</div>
+<small>Taciana deve a Leonardo</small>
+</div>
+</div>
+<div class="resumo-anual">
+<h3>📊 Resumo Anual 2025 por Categoria</h3>
+<div class="categorias-grid" id="resumo-categorias">
+<!-- Será preenchido pelo JavaScript -->
+</div>
+</div>
+<div class="filters">
+<input id="filter-descricao" placeholder="Buscar por descrição..." type="text"/>
+<select id="filter-categoria">
+<option value="">Todas as categorias</option>
+<option value="educacao">Educação</option>
+<option value="saude">Saúde</option>
+<option value="alimentacao">Alimentação</option>
+<option value="transporte">Transporte</option>
+<option value="comunicacao">Comunicação</option>
+<option value="lazer">Lazer</option>
+<option value="vestuario">Vestuário</option>
+<option value="outros">Outros</option>
+</select>
+<select id="filter-status">
+<option value="">Todos os status</option>
+<option value="pendente">Pendente</option>
+<option value="validado">Validado</option>
+</select>
+<select id="filter-mes">
+<option value="">Todos os meses</option>
+</select>
+</div>
+<div class="despesas-tabela" id="despesas-tabela">
+<!-- Monthly table will be populated by JavaScript -->
+</div>
+</div>
+<!-- Modal for new/edit expense -->
+<div class="modal" id="modal-despesa">
+<div class="modal-content">
+<span class="close">×</span>
+<h3 id="modal-title">Nova Despesa</h3>
+<form id="form-despesa">
+<div class="form-row">
+<div class="input-group">
+<label for="despesa-data">Data:</label>
+<input id="despesa-data" required="" type="date"/>
+</div>
+<div class="input-group">
+<label for="despesa-valor">Valor:</label>
+<input id="despesa-valor" min="0" required="" step="0.01" type="number"/>
+</div>
+</div>
+<div class="input-group">
+<label for="despesa-descricao">Descrição:</label>
+<input id="despesa-descricao" required="" type="text"/>
+</div>
+<div class="form-row">
+<div class="input-group">
+<label for="despesa-pagador">Pagador:</label>
+<select id="despesa-pagador" required="">
+<option value="leonardo">Leonardo</option>
+<option value="taciana">Taciana</option>
+</select>
+</div>
+<div class="input-group">
+<label for="despesa-categoria">Categoria:</label>
+<select id="despesa-categoria" required="">
+<option value="educacao">Educação</option>
+<option value="saude">Saúde</option>
+<option value="alimentacao">Alimentação</option>
+<option value="transporte">Transporte</option>
+<option value="comunicacao">Comunicação</option>
+<option value="lazer">Lazer</option>
+<option value="vestuario">Vestuário</option>
+<option value="outros">Outros</option>
+</select>
+</div>
+</div>
+<div class="input-group">
+<label for="despesa-tipo">Tipo:</label>
+<select id="despesa-tipo" required="">
+<option value="unica">Única</option>
+<option value="parcelada">Parcelada</option>
+<option value="recorrente">Recorrente</option>
+</select>
+</div>
+<div class="hidden" id="parcelamento-fields">
+<div class="form-row">
+<div class="input-group">
+<label for="parcelas-total">Total de Parcelas:</label>
+<input id="parcelas-total" min="1" type="number"/>
+</div>
+<div class="input-group">
+<label for="parcela-atual">Parcela Atual:</label>
+<input id="parcela-atual" min="1" type="number"/>
+</div>
+</div>
+</div>
+<div class="hidden" id="recorrencia-fields">
+<div class="input-group">
+<label for="recorrente-ate">Recorrente até:</label>
+<input id="recorrente-ate" type="date"/>
+</div>
+</div>
+<div class="input-group">
+<label for="despesa-anexo">Anexo:</label>
+<input accept="image/*,.pdf" id="despesa-anexo" type="file"/>
+</div>
+<div class="modal-buttons">
+<button class="btn-secondary" onclick="closeModalDespesa()" type="button">Cancelar</button>
+<button class="btn-primary" type="submit">Salvar</button>
+</div>
+</form>
+</div>
+</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
         // Initialize financial functionality
         document.addEventListener('DOMContentLoaded', function() {
             initConta();
