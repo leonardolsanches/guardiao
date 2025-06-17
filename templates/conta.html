@@ -7,7 +7,7 @@
 <title>Guarda do Theo - Conta Corrente</title>
 <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
 </head>
-<body><div id="resumo"></div>
+<body><button onclick="alternarResumo()">🧮 Mostrar/Esconder Resumo Anual</button><div id="resumo" style="display:none; margin-top: 1em;"></div>
 <nav class="navbar">
 <div class="nav-container">
 <div class="nav-logo">
@@ -151,5 +151,12 @@
             initConta();
         });
     </script>
-</body>
+
+<script>
+function alternarResumo() {
+  const div = document.getElementById('resumo');
+  div.style.display = div.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+<script src="/static/script.js"></script></body>
 </html>
