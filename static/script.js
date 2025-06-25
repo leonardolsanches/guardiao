@@ -157,22 +157,22 @@ function isNationalHoliday(year, month, day) {
         '11-15': 'Proclamação da República',
         '12-25': 'Natal'
     };
-    
+
     const dateKey = `${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    
+
     // Check fixed holidays
     if (feriados[dateKey]) {
         return feriados[dateKey];
     }
-    
+
     // Calculate Easter and related holidays
     const easter = calculateEaster(year);
     const carnaval = new Date(easter.getTime() - 47 * 24 * 60 * 60 * 1000); // 47 days before Easter
     const sextaFeira = new Date(easter.getTime() - 2 * 24 * 60 * 60 * 1000); // Good Friday
     const corpusChristi = new Date(easter.getTime() + 60 * 24 * 60 * 60 * 1000); // 60 days after Easter
-    
+
     const currentDate = new Date(year, month, day);
-    
+
     if (isSameDate(currentDate, carnaval) || isSameDate(currentDate, new Date(carnaval.getTime() + 24 * 60 * 60 * 1000))) {
         return 'Carnaval';
     }
@@ -182,7 +182,7 @@ function isNationalHoliday(year, month, day) {
     if (isSameDate(currentDate, corpusChristi)) {
         return 'Corpus Christi';
     }
-    
+
     return null;
 }
 
@@ -293,15 +293,27 @@ function setupContaEvents() {
 }
 
 function loadDespesas() {
+    console.log('Carregando despesas...');
     fetch('/api/despesas')
-        .then(response => response.json())
+        .then(response => {
+            console.log('Resposta recebida:', response.status);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Dados recebidos:', data.length, 'despesas');
             despesasData = data;
             populateMonthFilter();
             renderDespesasTabela();
             updateResumoFinanceiro();
         })
-        .catch(error => console.error('Error loading expenses:', error));
+        .catch(error => {
+            console.error('Erro ao carregar despesas:', error);
+            document.getElementById('despesas-tabela').innerHTML = 
+                '<div style="padding: 40px; text-align: center; color: #ff0000;">Erro ao carregar despesas: ' + error.message + '</div>';
+        });
 }
 
 function populateMonthFilter() {
@@ -328,7 +340,12 @@ function populateMonthFilter() {
 
 
 function renderDespesasTabela() {
+    console.log('Renderizando tabela de despesas...');
     const container = document.getElementById('despesas-tabela');
+    if (!container) {
+        console.error('Elemento despesas-tabela não encontrado!');
+        return;
+    }
 
     // Group expenses by month
     const groupedByMonth = {};
@@ -349,27 +366,9 @@ function renderDespesasTabela() {
     const today = new Date();
     const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
-    // Sort months: current first, then future months ascending, then past months descending
+    // Sort months from newest to oldest
     const sortedMonths = Object.keys(groupedByMonth).sort((a, b) => {
-        // Current month always comes first
-        if (a === currentMonth && b !== currentMonth) return -1;
-        if (b === currentMonth && a !== currentMonth) return 1;
-        if (a === currentMonth && b === currentMonth) return 0;
-        
-        const aIsFuture = a > currentMonth;
-        const bIsFuture = b > currentMonth;
-        
-        // If one is future and other is past, future comes first
-        if (aIsFuture && !bIsFuture) return -1;
-        if (!aIsFuture && bIsFuture) return 1;
-        
-        // If both are future, sort ascending (nearest first)
-        if (aIsFuture && bIsFuture) {
-            return a.localeCompare(b);
-        }
-        
-        // If both are past, sort descending (most recent first)
-        return b.localeCompare(a);
+        return b.localeCompare(a); // Descending order (newest first)
     });
 
     let html = '';
@@ -377,7 +376,7 @@ function renderDespesasTabela() {
     sortedMonths.forEach(month => {
         const [year, monthNum] = month.split('-');
         const monthName = monthNames[parseInt(monthNum) - 1];
-        const expenses = groupedByMonth[month];
+        const expenses = groupedByMonth[month].sort((a, b) => b.data.localeCompare(a.data));
 
         const totalMonth = expenses.filter(d => d.status === 'validado').reduce((sum, d) => sum + d.valor, 0);
 
@@ -445,14 +444,34 @@ function getTipoDescricao(despesa) {
 
 
 function updateResumoFinanceiro() {
-    // Função mantida apenas para calcular resumo por categorias se necessário
+    // Calcular saldo histórico baseado nos dados
+    const despesasValidadas = despesasData.filter(d => d.status === 'validado');
+    const leonardoTotal = despesasValidadas.filter(d => d.pagador === 'leonardo').reduce((sum, d) => sum + d.valor, 0);
+    const tacianaTotal = despesasValidadas.filter(d => d.pagador === 'taciana').reduce((sum, d) => sum + d.valor, 0);
+    const diferenca = leonardoTotal - tacianaTotal;
+
+    // Atualizar o saldo na tela
+    const saldoElement = document.getElementById('saldo-historico');
+    if (saldoElement) {
+        if (diferenca > 0) {
+            saldoElement.textContent = formatCurrency(diferenca);
+            saldoElement.parentElement.querySelector('small').textContent = 'Taciana deve a Leonardo';
+        } else if (diferenca < 0) {
+            saldoElement.textContent = formatCurrency(Math.abs(diferenca));
+            saldoElement.parentElement.querySelector('small').textContent = 'Leonardo deve a Taciana';
+        } else {
+            saldoElement.textContent = 'R$ 0,00';
+            saldoElement.parentElement.querySelector('small').textContent = 'Contas equilibradas';
+        }
+    }
+
     updateResumoCategorias();
 }
 
 function updateResumoCategorias() {
     const categorias = {};
     const currentYear = new Date().getFullYear();
-    
+
     despesasData
         .filter(d => d.status === 'validado' && d.data.startsWith(currentYear.toString()))
         .forEach(despesa => {
@@ -663,10 +682,10 @@ function calculateCalendarAnalytics() {
 function showAnexo(filename) {
     const modal = createAnexoModal();
     const modalContent = modal.querySelector('.anexo-modal-content');
-    
+
     // Determine file type
     const fileExtension = filename.split('.').pop().toLowerCase();
-    
+
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
         modalContent.innerHTML = `
             <span class="close-anexo" onclick="closeAnexoModal()">&times;</span>
@@ -686,7 +705,7 @@ function showAnexo(filename) {
             </div>
         `;
     }
-    
+
     modal.style.display = 'block';
 }
 
@@ -698,7 +717,7 @@ function createAnexoModal() {
         modal.className = 'anexo-modal';
         modal.innerHTML = '<div class="anexo-modal-content"></div>';
         document.body.appendChild(modal);
-        
+
         // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeAnexoModal();
