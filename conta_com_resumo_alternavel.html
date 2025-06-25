@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Conta Corrente - Theo</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Conta Corrente de Theo</h1>
+    <nav>
+      <a href="/calendario">📅 Calendário</a>
+      <a href="/conta">💰 Conta Corrente</a>
+      <a href="/logout">🚪 Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <button onclick="alternarResumo()">🧮 Mostrar/Esconder Resumo Anual</button>
+      <div id="resumo" style="display:none; margin-top: 1em;"></div>
+    </section>
+
+    <!-- Conteúdo tradicional da tela de conta permanece aqui -->
+    <section id="painel-conta">
+      <!-- Suas tabelas, filtros, totais por mês/categoria/etc. permanecem inalterados -->
+      <p>Aqui permanece a exibição tradicional da tela de conta corrente com filtros, totais mensais e ações.</p>
+    </section>
+  </main>
+
+  <script>
+    function alternarResumo() {
+      const div = document.getElementById('resumo');
+      div.style.display = div.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+  <script src="/static/script.js"></script>
+</body>
+</html>
