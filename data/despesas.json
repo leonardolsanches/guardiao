@@ -1,572 +1,2621 @@
 [
   {
-    "id": 1,
-    "data": "2025-05-15",
-    "descricao": "Material Escolar",
-    "valor": 378.85,
+    "data": "2020-08-13",
+    "descricao": "Transporte Escola AGO/2020",
+    "categoria": "geral",
+    "valor": 200.0,
     "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 5,
-    "recorrente_ate": null,
     "status": "validado",
-    "anexo": null,
-    "validado_por": "taciana"
+    "validado_por": "sistema"
   },
   {
-    "id": 2,
-    "data": "2025-05-09",
-    "descricao": "Celular (21) 985014874",
+    "data": "2020-08-13",
+    "descricao": "Escola AGO/2020",
+    "categoria": "geral",
+    "valor": 1560.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-08-14",
+    "descricao": "Livros Paradidaticos 14/08",
+    "categoria": "geral",
+    "valor": 96.9,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-08-26",
+    "descricao": "V-Bucks Autorizado por Taci",
+    "categoria": "aluguel",
+    "valor": 24.9,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-08-27",
+    "descricao": "Recarga Complementar",
+    "categoria": "tv/telefone/internet",
+    "valor": 20.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-01",
+    "descricao": "V-Bucks Pressnte Guigui",
+    "categoria": "aluguel",
+    "valor": 246.93,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-14",
+    "descricao": "Terapia Setembro",
+    "categoria": "educação",
+    "valor": 526.2,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-14",
+    "descricao": "Escola SET/2020",
+    "categoria": "educação",
+    "valor": 1560.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-15",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1710.14,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-25",
+    "descricao": "Escola OUT/2020",
+    "categoria": "educação",
+    "valor": 1560.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-25",
+    "descricao": "Livro Moleque Cidadão",
+    "categoria": "educação",
+    "valor": 38.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-29",
+    "descricao": "Terapia Outubro",
+    "categoria": "educação",
+    "valor": 526.2,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-09-29",
+    "descricao": "Livro Feiurinha",
+    "categoria": "educação",
+    "valor": 56.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-10-28",
+    "descricao": "Floral",
+    "categoria": "geral",
+    "valor": 64.8,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-11-01",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1633.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-11-04",
+    "descricao": "Terapia Novembro",
+    "categoria": "despesas médicas",
+    "valor": 751.6,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-11-05",
+    "descricao": "Escola NOV/2020",
+    "categoria": "educação",
+    "valor": 1834.9,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-11-26",
+    "descricao": "Integral MAR/2020",
+    "categoria": "educação",
+    "valor": 1519.15,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-12-07",
+    "descricao": "Terapia Dezembro",
+    "categoria": "despesas médicas",
+    "valor": 576.2,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2020-12-07",
+    "descricao": "Matrí­cula Alfa Cem 2021",
+    "categoria": "educação",
+    "valor": 968.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-01-19",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1145.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-01-20",
+    "descricao": "Material Escolar 2021",
+    "categoria": "educação",
+    "valor": 2290.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-01-23",
+    "descricao": "Internet Celular Theo",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-02",
+    "descricao": "Escola 05/02/21",
+    "categoria": "educação",
+    "valor": 1941.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-04",
+    "descricao": "Livros Paradidáticos",
+    "categoria": "educação",
+    "valor": 160.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-05",
+    "descricao": "Escola DEZ/2020",
+    "categoria": "educação",
+    "valor": 2033.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-05",
+    "descricao": "Plano de saude julho a janeiro",
+    "categoria": "despesas médicas",
+    "valor": 1529.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-05",
+    "descricao": "Remedios Naiza",
+    "categoria": "despesas médicas",
+    "valor": 282.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-10",
+    "descricao": "Caixa Naiza 2021 + bolinhas de calma",
+    "categoria": "despesas médicas",
+    "valor": 544.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-10",
+    "descricao": "Mascaras Theo",
+    "categoria": "vestuário",
+    "valor": 80.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-10",
+    "descricao": "Naiza 2020",
+    "categoria": "despesas médicas",
+    "valor": 450.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-12",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 3513.78,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-15",
+    "descricao": "Credito para internet Theo",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-23",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-26",
+    "descricao": "Final Contrato CELL PRESERVE",
+    "categoria": "geral",
+    "valor": 310.23,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-02-26",
+    "descricao": "Roupas Theo",
+    "categoria": "vestuário",
+    "valor": 239.4,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-03-01",
+    "descricao": "Agenda Escola",
+    "categoria": "geral",
+    "valor": 50.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-03-05",
+    "descricao": "Escolaridade Marí§o 2021",
+    "categoria": "geral",
+    "valor": 1941.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-03-24",
+    "descricao": "plano de saude Theo",
+    "categoria": "despesas médicas",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-03-26",
+    "descricao": "Escolaridade Abril 2021",
+    "categoria": "geral",
+    "valor": 1941.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-03-26",
+    "descricao": "Internet Theo",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-04-01",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1794.52,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-04-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-04-27",
+    "descricao": "Internet Theo",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-04-27",
+    "descricao": "Livro Paradidático Ingles",
+    "categoria": "geral",
+    "valor": 36.9,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-04-27",
+    "descricao": "Escolaridade Maio 2021",
+    "categoria": "geral",
+    "valor": 1941.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-05-18",
+    "descricao": "Escolaridade Junho 2021",
+    "categoria": "geral",
+    "valor": 1941.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-05-20",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1856.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-05-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-06-24",
+    "descricao": "Escolaridade Julho",
+    "categoria": "geral",
+    "valor": 1941.2,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-06-24",
+    "descricao": "Recarga Internet",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-06-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-07-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-02",
+    "descricao": "Tenis e bermuda jeas",
+    "categoria": "geral",
+    "valor": 117.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-02",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 765.46,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-02",
+    "descricao": "Escolaridade Agosto",
+    "categoria": "geral",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-17",
+    "descricao": "Recarga Internet",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-17",
+    "descricao": "Livro Paradidático Inglês",
+    "categoria": "geral",
+    "valor": 42.5,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-24",
+    "descricao": "Recarga",
+    "categoria": "geral",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-08-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-09-05",
+    "descricao": "Escolaridade Setembro",
+    "categoria": "geral",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-09-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-05",
+    "descricao": "Escolaridade Outubro",
+    "categoria": "geral",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-14",
+    "descricao": "Parcela 1 - Matricula 2022",
+    "categoria": "geral",
+    "valor": 1063.18,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-21",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 3031.96,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-25",
+    "descricao": "Dentista Theo",
+    "categoria": "geral",
+    "valor": 300.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-25",
+    "descricao": "Dois conjuntos Flamengo (bermuda e blusa)",
+    "categoria": "geral",
+    "valor": 279.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-27",
+    "descricao": "Paradidático Q3 Inglês",
+    "categoria": "geral",
+    "valor": 42.94,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-10-27",
+    "descricao": "Recarga",
+    "categoria": "geral",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-11-05",
+    "descricao": "Escolaridade Outubro",
+    "categoria": "geral",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-11-10",
+    "descricao": "Internet Theo",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-11-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-12-05",
+    "descricao": "Escolaridade Outubro",
+    "categoria": "geral",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2021-12-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-10",
+    "descricao": "Material Escolar 2022",
+    "categoria": "educação",
+    "valor": 2622.05,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-12",
+    "descricao": "Tênis Nike Outlet",
+    "categoria": "vestuário",
+    "valor": 199.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-12",
+    "descricao": "Recarga celular",
+    "categoria": "tv/telefone/internet",
+    "valor": 60.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-12",
+    "descricao": "Uniformes 2022",
+    "categoria": "vestuário",
+    "valor": 266.67,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-12",
+    "descricao": "Camiseta Educação Fisica",
+    "categoria": "vestuário",
+    "valor": 39.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-01-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Consulta Naiza (descontado do reembolso) ",
+    "categoria": "geral",
+    "valor": 250.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Blusas Bossa",
+    "categoria": "geral",
+    "valor": 240.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Remedios Naiza",
+    "categoria": "geral",
+    "valor": 433.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Bermudas ",
+    "categoria": "geral",
+    "valor": 178.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Maldito Golpe",
+    "categoria": "geral",
+    "valor": 3700.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-01",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 2598.44,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 1941.22,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-11",
+    "descricao": "Material Kalunga",
+    "categoria": "geral",
+    "valor": 133.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-12",
+    "descricao": "Uniformes 2022",
+    "categoria": "geral",
+    "valor": 266.67,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-02-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-03-04",
+    "descricao": "5 Máscaras Escola",
+    "categoria": "geral",
+    "valor": 53.9,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-03-04",
+    "descricao": "Cadernos",
+    "categoria": "geral",
+    "valor": 58.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-03-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 2125.8,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-03-12",
+    "descricao": "Uniformes 2022",
+    "categoria": "geral",
+    "valor": 266.67,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-03-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-04-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-04-07",
+    "descricao": "GRERJ CUSTAS SEPARAÇÃO",
+    "categoria": "geral",
+    "valor": 700.38,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-04-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-05-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-05-17",
+    "descricao": "Teste covid",
+    "categoria": "geral",
+    "valor": 105.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-05-17",
+    "descricao": "Repelente exclusivo Theo ",
+    "categoria": "geral",
+    "valor": 64.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-05-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-06-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-06-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-06-27",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 4553.98,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-07-02",
+    "descricao": "Festa Julina",
+    "categoria": "geral",
+    "valor": 120.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-07-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-07-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-07-27",
+    "descricao": "Blusa de malha",
+    "categoria": "geral",
+    "valor": 45.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-08",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 2626.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-08",
+    "descricao": "Telefone Theo",
+    "categoria": "geral",
+    "valor": 550.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-09",
+    "descricao": "2 blusas Theo",
+    "categoria": "geral",
+    "valor": 59.98,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-29",
+    "descricao": "Aula Matematica",
+    "categoria": "geral",
+    "valor": 160.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-08-29",
+    "descricao": "Valor mensal Ingles",
+    "categoria": "geral",
+    "valor": 520.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-09-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-09-08",
+    "descricao": "Alimentação Setembro",
+    "categoria": "geral",
+    "valor": 780.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-09-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-02",
+    "descricao": "Niver Theo",
+    "categoria": "geral",
+    "valor": 1352.86,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-13",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1313.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-13",
+    "descricao": "Ingles",
+    "categoria": "geral",
+    "valor": 650.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-13",
+    "descricao": "Matematica",
+    "categoria": "geral",
+    "valor": 300.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-13",
+    "descricao": "Alimentacão",
+    "categoria": "geral",
+    "valor": 780.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-19",
+    "descricao": "Escola setembro",
+    "categoria": "geral",
+    "valor": 1313.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-19",
+    "descricao": "Compras PS4 ",
+    "categoria": "mercado",
+    "valor": 470.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-10-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-01",
+    "descricao": "1ª Parcela da Anuidade - Assinatura Eletrônica",
+    "categoria": "geral",
+    "valor": 1188.1,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-17",
+    "descricao": "Roupas Theo",
+    "categoria": "geral",
+    "valor": 725.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-17",
+    "descricao": "Farmacinha viagem",
+    "categoria": "geral",
+    "valor": 78.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-17",
+    "descricao": "Vitamina D - uso contí­nuo",
+    "categoria": "geral",
+    "valor": 37.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-11-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-12-01",
+    "descricao": "Leonardo L. pagou Taciana L.",
+    "categoria": "pagamento",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-12-01",
+    "descricao": "Aula Particular Valéria",
+    "categoria": "geral",
+    "valor": 650.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-12-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2022-12-27",
+    "descricao": "Plano de Saude Theo",
+    "categoria": "geral",
+    "valor": 267.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-09",
+    "descricao": "Apostilas Sexto Ano",
+    "categoria": "geral",
+    "valor": 3214.56,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-20",
+    "descricao": "Ingles dezemnro",
+    "categoria": "geral",
+    "valor": 640.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-20",
+    "descricao": "Matematica dezembro",
+    "categoria": "geral",
+    "valor": 240.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-20",
+    "descricao": "Alimentos dezembro",
+    "categoria": "geral",
+    "valor": 470.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-01-24",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-05",
+    "descricao": "Mensalidade Estendido",
+    "categoria": "geral",
+    "valor": 1222.99,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-09",
+    "descricao": "Uniformes 1",
+    "categoria": "geral",
+    "valor": 195.83,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-09",
+    "descricao": "Material escolar",
+    "categoria": "geral",
+    "valor": 149.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-09",
+    "descricao": "Transporte escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-02-20",
+    "descricao": "Celular Theo",
+    "categoria": "geral",
+    "valor": 720.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-05",
+    "descricao": "Mensalidade Estendido",
+    "categoria": "geral",
+    "valor": 1222.99,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-13",
+    "descricao": "The Tempest",
+    "categoria": "geral",
+    "valor": 47.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-17",
+    "descricao": "2 blusas educação fisica",
+    "categoria": "geral",
+    "valor": 126.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-20",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 5184.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-20",
+    "descricao": "Alimentos fev23",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-03-28",
+    "descricao": "Livro Fod Suply - Global Issues",
+    "categoria": "geral",
+    "valor": 59.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-04-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-04-05",
+    "descricao": "Mensalidade Estendido",
+    "categoria": "geral",
+    "valor": 1222.99,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-04-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-04-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-05-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-05-05",
+    "descricao": "Mensalidade Estendido",
+    "categoria": "geral",
+    "valor": 1222.99,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-05-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-05-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-06-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-06-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-06-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-07-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-07-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-07-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-08-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-08-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-08-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Graí§a Julho",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Graí§a Agosto",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Graí§a Setembro",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Comprar pré férias de julho Renner",
+    "categoria": "geral",
+    "valor": 890.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Compra kalunga trabalho Historia",
+    "categoria": "mercado",
+    "valor": 74.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Personal Setembro",
+    "categoria": "geral",
+    "valor": 400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-09-26",
+    "descricao": "Taciana L. pagou Leonardo L.",
+    "categoria": "pagamento",
+    "valor": 1493.18,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-10-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-10-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-10-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-10-26",
+    "descricao": "Graí§a Setembro",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-11-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-11-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-11-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-11-26",
+    "descricao": "Graí§a Setembro",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-12-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2624.45,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-12-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-12-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2023-12-26",
+    "descricao": "Graí§a Setembro",
+    "categoria": "servií§os",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-01-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-01-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-01-11",
+    "descricao": "Paradidáticos Usados",
+    "categoria": "geral",
+    "valor": 150.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-01-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-01-30",
+    "descricao": "Cadernos ",
+    "categoria": "geral",
+    "valor": 162.1,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-02-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-02-05",
+    "descricao": "Apostilas  7 ano - Fundamental II",
+    "categoria": "geral",
+    "valor": 3489.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-02-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-02-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-03-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-03-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-03-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-04-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-04-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-04-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-24",
+    "descricao": "Graí§a jan/fev/mar/abr/mai",
+    "categoria": "geral",
+    "valor": 7500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-24",
+    "descricao": "Personal out/nov/ fev/mar/abr",
+    "categoria": "geral",
+    "valor": 4000.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-24",
+    "descricao": "Dois jogos de blusa e short escola",
+    "categoria": "geral",
+    "valor": 297.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-27",
+    "descricao": "CELULAR OUT22 a MAI24",
+    "categoria": "geral",
+    "valor": 994.6,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-05-27",
+    "descricao": "A Volta Ao Mundo Em 80 Dias",
+    "categoria": "geral",
+    "valor": 72.29,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-06-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-06-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-06-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-07-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-07-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-07-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-08-05",
+    "descricao": "Escolaridade",
+    "categoria": "geral",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-08-05",
+    "descricao": "Alimentos fevereiro",
+    "categoria": "geral",
+    "valor": 800.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-08-15",
+    "descricao": "Transporte Escolar",
+    "categoria": "geral",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-01",
+    "descricao": "Roupas e 2 tenis",
+    "categoria": "vestuário",
+    "valor": 1470.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-04",
+    "descricao": "Graí§a junho",
+    "categoria": "aluguel",
+    "valor": 1500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-04",
+    "descricao": "Personal mai/jun/ago/set",
+    "categoria": "esportes",
+    "valor": 3200.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 49.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-09",
+    "descricao": "Roupas Privalia + Tênis",
+    "categoria": "vestuário",
+    "valor": 300.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-09-09",
+    "descricao": "Celular (21)985014874  JUN-JUL-AGO",
+    "categoria": "tv/telefone/internet",
+    "valor": 149.19,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-08",
+    "descricao": "1ª Parcela da Anuidade",
+    "categoria": "geral",
+    "valor": 348.1,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 49.73,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-10-09",
+    "descricao": "Personal íºltimas aulas feitas até mudanca (depois disso eu assumi)",
+    "categoria": "geral",
+    "valor": 600.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-11-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-11-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-11-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-11-08",
+    "descricao": "2ª Parcela da Anuidade",
+    "categoria": "geral",
+    "valor": 348.1,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-11-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
     "valor": 54.34,
     "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "taciana"
+    "validado_por": "sistema"
   },
   {
-    "id": 3,
-    "data": "2025-05-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
+    "data": "2024-11-15",
+    "descricao": "Becco",
+    "categoria": "geral",
+    "valor": 43.15,
+    "pagador": "leonardo",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
+    "validado_por": "sistema"
   },
   {
-    "id": 4,
-    "data": "2025-05-05",
+    "data": "2024-12-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-12-05",
     "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 2803.21,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-12-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-12-08",
+    "descricao": "3ª Parcela da Anuidade",
+    "categoria": "geral",
+    "valor": 348.1,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2024-12-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-01-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-01-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
     "valor": 3026.06,
     "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "taciana"
+    "validado_por": "sistema"
   },
   {
-    "id": 5,
+    "data": "2025-01-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-01-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-01-15",
+    "descricao": "Material Escolar 1/10",
+    "categoria": "geral",
+    "valor": 378.85,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-04",
+    "descricao": "Livros Paradidáticos",
+    "categoria": "geral",
+    "valor": 125.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 3026.06,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-02-15",
+    "descricao": "Material Escolar 2/10",
+    "categoria": "geral",
+    "valor": 378.85,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 3026.06,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-15",
+    "descricao": "Material Escolar 3/10",
+    "categoria": "geral",
+    "valor": 378.85,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-03-22",
+    "descricao": "Almoí§o Theo",
+    "categoria": "jantar fora",
+    "valor": 23.42,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-04-04",
+    "descricao": "Transporte Escolar",
+    "categoria": "carro",
+    "valor": 500.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-04-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 3026.06,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-04-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-04-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-04-15",
+    "descricao": "Material Escolar 4/10",
+    "categoria": "geral",
+    "valor": 378.85,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
     "data": "2025-05-04",
     "descricao": "Transporte Escolar",
+    "categoria": "carro",
     "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 6,
-    "data": "2025-06-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
     "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "taciana"
+    "validado_por": "sistema"
   },
   {
-    "id": 7,
-    "data": "2025-06-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 8,
-    "data": "2025-06-05",
+    "data": "2025-05-05",
     "descricao": "Escolaridade",
+    "categoria": "educação",
     "valor": 3026.06,
     "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "taciana"
+    "validado_por": "sistema"
   },
   {
-    "id": 9,
+    "data": "2025-05-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-05-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-05-15",
+    "descricao": "Material Escolar 5/10",
+    "categoria": "geral",
+    "valor": 378.85,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
     "data": "2025-06-04",
     "descricao": "Transporte Escolar",
+    "categoria": "carro",
     "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
+    "pagador": "leonardo",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
+    "validado_por": "sistema"
   },
   {
-    "id": 10,
+    "data": "2025-06-05",
+    "descricao": "Escolaridade",
+    "categoria": "educação",
+    "valor": 3026.06,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-06-05",
+    "descricao": "Alimentação",
+    "categoria": "jantar fora",
+    "valor": 1400.0,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
+    "data": "2025-06-09",
+    "descricao": "Celular (21)985014874",
+    "categoria": "tv/telefone/internet",
+    "valor": 54.34,
+    "pagador": "leonardo",
+    "status": "validado",
+    "validado_por": "sistema"
+  },
+  {
     "data": "2025-06-15",
-    "descricao": "Material Escolar",
+    "descricao": "Material Escolar 5/10",
+    "categoria": "geral",
     "valor": 378.85,
     "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 6,
-    "recorrente_ate": null,
     "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
+    "validado_por": "sistema"
   },
   {
-    "id": 11,
-    "data": "2025-07-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
+    "data": "2025-06-19",
+    "descricao": "Saldo total",
+    "categoria": "total",
+    "valor": 12138.24,
     "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
     "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 12,
-    "data": "2025-07-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 13,
-    "data": "2025-07-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 14,
-    "data": "2025-07-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 15,
-    "data": "2025-07-15",
-    "descricao": "Material Escolar",
-    "valor": 378.85,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 7,
-    "recorrente_ate": null,
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 16,
-    "data": "2025-08-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
-    "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 17,
-    "data": "2025-08-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 18,
-    "data": "2025-08-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 19,
-    "data": "2025-08-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 20,
-    "data": "2025-08-15",
-    "descricao": "Material Escolar",
-    "valor": 378.85,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 8,
-    "recorrente_ate": null,
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 21,
-    "data": "2025-09-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
-    "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 22,
-    "data": "2025-09-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 23,
-    "data": "2025-09-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 24,
-    "data": "2025-09-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 25,
-    "data": "2025-09-15",
-    "descricao": "Material Escolar",
-    "valor": 378.85,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 9,
-    "recorrente_ate": null,
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 26,
-    "data": "2025-10-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
-    "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 27,
-    "data": "2025-10-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 28,
-    "data": "2025-10-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 29,
-    "data": "2025-10-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 30,
-    "data": "2025-10-15",
-    "descricao": "Material Escolar",
-    "valor": 378.85,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "parcelada",
-    "parcelas_total": 10,
-    "parcela_atual": 10,
-    "recorrente_ate": null,
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 31,
-    "data": "2025-11-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
-    "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 32,
-    "data": "2025-11-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 33,
-    "data": "2025-11-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 34,
-    "data": "2025-11-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 35,
-    "data": "2025-12-09",
-    "descricao": "Celular (21) 985014874",
-    "valor": 54.34,
-    "pagador": "leonardo",
-    "categoria": "comunicacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 36,
-    "data": "2025-12-05",
-    "descricao": "Alimentação",
-    "valor": 1400.0,
-    "pagador": "taciana",
-    "categoria": "alimentacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 37,
-    "data": "2025-12-05",
-    "descricao": "Escolaridade",
-    "valor": 3026.06,
-    "pagador": "leonardo",
-    "categoria": "educacao",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
-  },
-  {
-    "id": 38,
-    "data": "2025-12-04",
-    "descricao": "Transporte Escolar",
-    "valor": 500.0,
-    "pagador": "taciana",
-    "categoria": "transporte",
-    "tipo": "recorrente",
-    "parcelas_total": null,
-    "parcela_atual": null,
-    "recorrente_ate": "2025-12-31",
-    "status": "validado",
-    "anexo": null,
-    "validado_por": "leonardo"
+    "validado_por": "sistema"
   }
 ]

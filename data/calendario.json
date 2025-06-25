@@ -177,35 +177,47 @@
   },
   "2025-07-11": {
     "responsavel": "taciana",
-    "tipo": "planejado"
+    "tipo": "planejado",
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-12": {
     "responsavel": "taciana",
-    "tipo": "planejado"
+    "tipo": "planejado",
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-13": {
     "responsavel": "taciana",
     "tipo": "planejado"
   },
-  "2025-07-15": {
-    "responsavel": "leonardo",
+  "2025-07-10": {
+    "responsavel": "taciana",
     "tipo": "planejado",
-    "observacao": "Período especial - Theo com pai todos os dias"
+    "observacao": "Viagem ao nordeste"
+  },
+  "2025-07-14": {
+    "responsavel": "taciana",
+    "tipo": "planejado",
+    "observacao": "Viagem ao nordeste"
+  },
+  "2025-07-15": {
+    "responsavel": "taciana",
+    "tipo": "planejado",
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-16": {
-    "responsavel": "leonardo",
+    "responsavel": "taciana",
     "tipo": "planejado",
-    "observacao": "Período especial - Theo com pai todos os dias"
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-17": {
-    "responsavel": "leonardo",
+    "responsavel": "taciana",
     "tipo": "planejado",
-    "observacao": "Período especial - Theo com pai todos os dias"
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-18": {
-    "responsavel": "leonardo",
+    "responsavel": "taciana",
     "tipo": "planejado",
-    "observacao": "Período especial - Theo com pai todos os dias"
+    "observacao": "Viagem ao nordeste"
   },
   "2025-07-19": {
     "responsavel": "leonardo",
@@ -325,6 +337,210 @@
   },
   "2025-08-31": {
     "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-05": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-06": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-07": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-12": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-13": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-14": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-19": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-20": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-21": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-09-26": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-27": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-09-28": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-03": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-04": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-05": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-10": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-11": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-12": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-17": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-18": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-19": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-10-24": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-25": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-26": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-10-31": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-01": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-02": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-07": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-08": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-09": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-14": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-15": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-16": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-21": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-22": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-23": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-11-28": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-29": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-11-30": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-05": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-06": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-07": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-12": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-13": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-14": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-19": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-20": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-21": {
+    "responsavel": "taciana",
+    "tipo": "planejado"
+  },
+  "2025-12-26": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-27": {
+    "responsavel": "leonardo",
+    "tipo": "planejado"
+  },
+  "2025-12-28": {
+    "responsavel": "leonardo",
     "tipo": "planejado"
   }
 }
