@@ -66,7 +66,22 @@
         </div>
 
         <div class="despesas-tabela" id="despesas-tabela">
-            <!-- Monthly table will be populated by JavaScript -->
+            <p id="debug-info" style="color: #666; font-size: 12px; margin-bottom: 10px;"></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Pagador</th>
+                        <th>Categoria</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="despesas-lista">
+                    <!-- Despesas will be loaded here -->
+                </tbody>
+            </table>
         </div>
     </div>
 
