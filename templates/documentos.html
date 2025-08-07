@@ -1,0 +1,229 @@
+
+{% extends "base.html" %}
+
+{% block title %}Documentos - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Documentos da Criança</h1>
+    <p>RG, CPF, certidão, contratos escolares, etc.</p>
+    <button class="btn btn-primary" onclick="abrirModalDocumento()">+ Novo Documento</button>
+</div>
+
+<div class="documentos-container">
+    <div class="documentos-categorias">
+        <button class="btn-categoria active" data-categoria="todas" onclick="filtrarDocumentos('todas')">Todos</button>
+        <button class="btn-categoria" data-categoria="identidade" onclick="filtrarDocumentos('identidade')">Identidade</button>
+        <button class="btn-categoria" data-categoria="escola" onclick="filtrarDocumentos('escola')">Escola</button>
+        <button class="btn-categoria" data-categoria="saude" onclick="filtrarDocumentos('saude')">Saúde</button>
+        <button class="btn-categoria" data-categoria="outros" onclick="filtrarDocumentos('outros')">Outros</button>
+    </div>
+
+    <div class="documentos-grid" id="documentos-grid">
+        <!-- Documentos serão carregados aqui -->
+    </div>
+</div>
+
+<!-- Modal para adicionar documento -->
+<div id="modal-documento" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Novo Documento</h3>
+            <span class="close" onclick="fecharModalDocumento()">&times;</span>
+        </div>
+        <form id="documento-form">
+            <div class="form-group">
+                <label for="nome_documento">Nome do Documento</label>
+                <input type="text" id="nome_documento" name="nome_documento" required>
+            </div>
+            <div class="form-group">
+                <label for="categoria_doc">Categoria</label>
+                <select id="categoria_doc" name="categoria_doc" required>
+                    <option value="identidade">Documentos de Identidade</option>
+                    <option value="escola">Documentos Escolares</option>
+                    <option value="saude">Documentos de Saúde</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numero_documento">Número</label>
+                <input type="text" id="numero_documento" name="numero_documento">
+            </div>
+            <div class="form-group">
+                <label for="data_emissao">Data de Emissão</label>
+                <input type="date" id="data_emissao" name="data_emissao">
+            </div>
+            <div class="form-group">
+                <label for="data_validade">Data de Validade</label>
+                <input type="date" id="data_validade" name="data_validade">
+            </div>
+            <div class="form-group">
+                <label for="orgao_emissor">Órgão Emissor</label>
+                <input type="text" id="orgao_emissor" name="orgao_emissor">
+            </div>
+            <div class="form-group">
+                <label for="arquivo_documento">Arquivo (opcional)</label>
+                <input type="file" id="arquivo_documento" name="arquivo_documento" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+            <div class="form-group">
+                <label for="observacoes_doc">Observações</label>
+                <textarea id="observacoes_doc" name="observacoes_doc" rows="3"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar Documento</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalDocumento()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let documentos = [];
+let categoriaAtiva = 'todas';
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarDocumentos();
+    
+    document.getElementById('documento-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarDocumento();
+    });
+});
+
+function carregarDocumentos() {
+    fetch('/api/documentos')
+        .then(response => response.json())
+        .then(data => {
+            documentos = data;
+            renderizarDocumentos();
+        });
+}
+
+function renderizarDocumentos() {
+    const grid = document.getElementById('documentos-grid');
+    
+    let documentosFiltrados = documentos;
+    if (categoriaAtiva !== 'todas') {
+        documentosFiltrados = documentos.filter(doc => doc.categoria_doc === categoriaAtiva);
+    }
+    
+    if (documentosFiltrados.length === 0) {
+        grid.innerHTML = '<p class="empty-state">Nenhum documento encontrado nesta categoria.</p>';
+        return;
+    }
+    
+    grid.innerHTML = documentosFiltrados.map(doc => `
+        <div class="documento-card categoria-${doc.categoria_doc}">
+            <div class="documento-header">
+                <h3>${doc.nome_documento}</h3>
+                <span class="documento-categoria">${getCategoriaLabel(doc.categoria_doc)}</span>
+            </div>
+            <div class="documento-info">
+                ${doc.numero_documento ? `<p><strong>Número:</strong> ${doc.numero_documento}</p>` : ''}
+                ${doc.data_emissao ? `<p><strong>Emissão:</strong> ${formatarData(doc.data_emissao)}</p>` : ''}
+                ${doc.data_validade ? `<p><strong>Validade:</strong> ${formatarData(doc.data_validade)}</p>` : ''}
+                ${doc.orgao_emissor ? `<p><strong>Órgão:</strong> ${doc.orgao_emissor}</p>` : ''}
+                ${doc.observacoes_doc ? `<p><strong>Obs:</strong> ${doc.observacoes_doc}</p>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+function getCategoriaLabel(categoria) {
+    const labels = {
+        'identidade': 'Identidade',
+        'escola': 'Escola',
+        'saude': 'Saúde',
+        'outros': 'Outros'
+    };
+    return labels[categoria] || categoria;
+}
+
+function filtrarDocumentos(categoria) {
+    categoriaAtiva = categoria;
+    
+    document.querySelectorAll('.btn-categoria').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-categoria="${categoria}"]`).classList.add('active');
+    
+    renderizarDocumentos();
+}
+
+function abrirModalDocumento() {
+    document.getElementById('modal-documento').style.display = 'block';
+}
+
+function fecharModalDocumento() {
+    document.getElementById('modal-documento').style.display = 'none';
+    document.getElementById('documento-form').reset();
+}
+
+function salvarDocumento() {
+    const formData = new FormData(document.getElementById('documento-form'));
+    const data = Object.fromEntries(formData);
+    
+    fetch('/api/documentos/salvar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalDocumento();
+            carregarDocumentos();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR');
+}
+</script>
+
+<style>
+.documento-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.categoria-identidade { border-left-color: #28a745; }
+.categoria-escola { border-left-color: #fd7e14; }
+.categoria-saude { border-left-color: #dc3545; }
+.categoria-outros { border-left-color: #6c757d; }
+
+.documento-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.documento-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.documento-categoria {
+    background: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.documento-info p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+</style>
+{% endblock %}

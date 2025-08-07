@@ -1,0 +1,204 @@
+
+{% extends "base.html" %}
+
+{% block title %}Notas Compartilhadas - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Bloco de Notas Compartilhado</h1>
+    <p>Espaço para anotações importantes dos pais</p>
+    <button class="btn btn-primary" onclick="abrirModalNota()">+ Nova Nota</button>
+</div>
+
+<div class="notas-container">
+    <div class="notas-categorias">
+        <button class="btn-categoria active" data-categoria="todas" onclick="filtrarNotas('todas')">Todas</button>
+        <button class="btn-categoria" data-categoria="senhas" onclick="filtrarNotas('senhas')">Senhas</button>
+        <button class="btn-categoria" data-categoria="contatos" onclick="filtrarNotas('contatos')">Contatos</button>
+        <button class="btn-categoria" data-categoria="escola" onclick="filtrarNotas('escola')">Escola</button>
+        <button class="btn-categoria" data-categoria="saude" onclick="filtrarNotas('saude')">Saúde</button>
+        <button class="btn-categoria" data-categoria="geral" onclick="filtrarNotas('geral')">Geral</button>
+    </div>
+
+    <div class="notas-grid" id="notas-grid">
+        <!-- Notas serão carregadas aqui -->
+    </div>
+</div>
+
+<!-- Modal para adicionar/editar nota -->
+<div id="modal-nota" class="modal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h3 id="modal-titulo">Nova Nota</h3>
+            <span class="close" onclick="fecharModalNota()">&times;</span>
+        </div>
+        <form id="nota-form">
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="geral">Geral</option>
+                    <option value="senhas">Senhas/Logins</option>
+                    <option value="contatos">Contatos</option>
+                    <option value="escola">Escola</option>
+                    <option value="saude">Saúde</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="conteudo">Conteúdo</label>
+                <textarea id="conteudo" name="conteudo" rows="6" required placeholder="Digite aqui suas anotações..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="importante" name="importante">
+                    Marcar como importante
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar Nota</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalNota()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let notas = [];
+let categoriaAtiva = 'todas';
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarNotas();
+    
+    document.getElementById('nota-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarNota();
+    });
+});
+
+function carregarNotas() {
+    fetch('/api/notas')
+        .then(response => response.json())
+        .then(data => {
+            notas = data.sort((a, b) => new Date(b.data_criacao) - new Date(a.data_criacao));
+            renderizarNotas();
+        });
+}
+
+function renderizarNotas() {
+    const grid = document.getElementById('notas-grid');
+    
+    let notasFiltradas = notas;
+    if (categoriaAtiva !== 'todas') {
+        notasFiltradas = notas.filter(nota => nota.categoria === categoriaAtiva);
+    }
+    
+    if (notasFiltradas.length === 0) {
+        grid.innerHTML = '<p class="empty-state">Nenhuma nota encontrada nesta categoria.</p>';
+        return;
+    }
+    
+    grid.innerHTML = notasFiltradas.map(nota => `
+        <div class="nota-card ${nota.importante ? 'importante' : ''}" data-categoria="${nota.categoria}">
+            <div class="nota-header">
+                <h3>${nota.titulo}</h3>
+                <div class="nota-meta">
+                    <span class="categoria-badge categoria-${nota.categoria}">${getCategoriaLabel(nota.categoria)}</span>
+                    ${nota.importante ? '<span class="importante-badge">⭐</span>' : ''}
+                </div>
+            </div>
+            <div class="nota-conteudo">
+                ${formatarConteudo(nota.conteudo)}
+            </div>
+            <div class="nota-footer">
+                <small>Por ${nota.autor} em ${formatarData(nota.data_criacao)}</small>
+                <div class="nota-acoes">
+                    <button class="btn-acao" onclick="editarNota(${nota.id})" title="Editar">✏️</button>
+                    <button class="btn-acao" onclick="excluirNota(${nota.id})" title="Excluir">🗑️</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function getCategoriaLabel(categoria) {
+    const labels = {
+        'geral': 'Geral',
+        'senhas': 'Senhas',
+        'contatos': 'Contatos',
+        'escola': 'Escola',
+        'saude': 'Saúde'
+    };
+    return labels[categoria] || categoria;
+}
+
+function formatarConteudo(conteudo) {
+    // Quebrar linhas e limitar visualização
+    const linhas = conteudo.split('\n');
+    const preview = linhas.slice(0, 4).join('<br>');
+    
+    if (linhas.length > 4) {
+        return preview + '<br><span class="ver-mais">... ver mais</span>';
+    }
+    
+    return preview;
+}
+
+function filtrarNotas(categoria) {
+    categoriaAtiva = categoria;
+    
+    // Atualizar botões ativos
+    document.querySelectorAll('.btn-categoria').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-categoria="${categoria}"]`).classList.add('active');
+    
+    renderizarNotas();
+}
+
+function abrirModalNota() {
+    document.getElementById('modal-titulo').textContent = 'Nova Nota';
+    document.getElementById('modal-nota').style.display = 'block';
+}
+
+function fecharModalNota() {
+    document.getElementById('modal-nota').style.display = 'none';
+    document.getElementById('nota-form').reset();
+}
+
+function salvarNota() {
+    const formData = new FormData(document.getElementById('nota-form'));
+    const data = Object.fromEntries(formData);
+    data.importante = document.getElementById('importante').checked;
+    
+    fetch('/api/notas/salvar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalNota();
+            carregarNotas();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+</script>
+{% endblock %}

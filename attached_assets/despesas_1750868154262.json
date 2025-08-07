@@ -1,0 +1,67 @@
+[
+  {
+    "Date": "13/08/20",
+    "Description": "Transporte Escola AGO/2020",
+    "Category": "Geral",
+    "Cost": 200.00,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 100.00,
+    "Taciana_Lhamas": -100.00
+  },
+  {
+    "Date": "13/08/20",
+    "Description": "Escola AGO/2020",
+    "Category": "Geral",
+    "Cost": 1560.42,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 780.21,
+    "Taciana_Lhamas": -780.21
+  },
+  {
+    "Date": "14/08/20",
+    "Description": "Livros Paradidaticos 14/08",
+    "Category": "Geral",
+    "Cost": 96.90,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 48.45,
+    "Taciana_Lhamas": -48.45
+  },
+  {
+    "Date": "26/08/20",
+    "Description": "V-Bucks Autorizado por Taci",
+    "Category": "Aluguel",
+    "Cost": 24.90,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 24.90,
+    "Taciana_Lhamas": -24.90
+  },
+  {
+    "Date": "27/08/20",
+    "Description": "Recarga Complementar",
+    "Category": "TV/Telefone/Internet",
+    "Cost": 20.00,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 10.00,
+    "Taciana_Lhamas": -10.00
+  },
+  {
+    "Date": "01/09/20",
+    "Description": "V-Bucks Pressnte Guigui",
+    "Category": "Aluguel",
+    "Cost": 246.93,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 246.93,
+    "Taciana_Lhamas": -246.93
+  },
+  {
+    "Date": "14/09/20",
+    "Description": "Terapia Setembro",
+    "Category": "Educação",
+    "Cost": 526.20,
+    "Currency": "BRL",
+    "Leonardo_Lima_Sanches": 263.10,
+    "Taciana_Lhamas": -263.10
+  },
+  {
+    "Date": "14/09/20",
+    "Description": "Escola SET

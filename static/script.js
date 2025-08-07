@@ -1,3 +1,4 @@
+
 // Global variables
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
@@ -34,14 +35,21 @@ function setupCalendarEvents() {
 
     // Modal events
     const modal = document.getElementById('modal-edit-day');
-    const closeBtn = modal.querySelector('.close');
+    if (modal) {
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
 
-    closeBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    document.getElementById('form-edit-day').addEventListener('submit', saveCalendarDay);
+    const form = document.getElementById('form-edit-day');
+    if (form) {
+        form.addEventListener('submit', saveCalendarDay);
+    }
 }
 
 function loadCalendarData() {
@@ -60,8 +68,10 @@ function renderCalendar() {
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
-    document.getElementById('calendar-title').textContent = 
-        `${monthNames[currentMonth]} ${currentYear}`;
+    const titleElement = document.getElementById('calendar-title');
+    if (titleElement) {
+        titleElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    }
 
     // Update analytics
     const analytics = calculateCalendarAnalytics();
@@ -70,6 +80,8 @@ function renderCalendar() {
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const calendarDays = document.getElementById('calendar-days');
+
+    if (!calendarDays) return;
 
     calendarDays.innerHTML = '';
 
@@ -220,7 +232,10 @@ function openEditModal(date, dayData) {
 }
 
 function closeModal() {
-    document.getElementById('modal-edit-day').style.display = 'none';
+    const modal = document.getElementById('modal-edit-day');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function saveCalendarDay(e) {
@@ -255,6 +270,34 @@ function saveCalendarDay(e) {
     });
 }
 
+function calculateCalendarAnalytics() {
+    const analytics = {
+        leonardo: { planejado: 0, realizado: 0 },
+        taciana: { planejado: 0, realizado: 0 },
+        avos_paternos: { planejado: 0, realizado: 0 }
+    };
+
+    const today = new Date();
+    const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+
+    for (const [date, info] of Object.entries(calendarData)) {
+        if (date.startsWith(currentMonth)) {
+            const dayDate = new Date(date + 'T00:00:00');
+            const responsavel = info.responsavel;
+
+            if (analytics[responsavel]) {
+                if (dayDate <= today) {
+                    analytics[responsavel].realizado++;
+                } else {
+                    analytics[responsavel].planejado++;
+                }
+            }
+        }
+    }
+
+    return analytics;
+}
+
 // Financial account functionality
 function initConta() {
     loadDespesas();
@@ -262,34 +305,61 @@ function initConta() {
 }
 
 function setupContaEvents() {
-    document.getElementById('btn-nova-despesa').addEventListener('click', openNovaDespesaModal);
-
-    // View toggle events
-    //document.getElementById('btn-view-list').addEventListener('click', () => toggleView('list'));
-    //document.getElementById('btn-view-table').addEventListener('click', () => toggleView('table'));
+    const btnNovaDespesa = document.getElementById('btn-nova-despesa');
+    if (btnNovaDespesa) {
+        btnNovaDespesa.addEventListener('click', openNovaDespesaModal);
+    }
 
     // Modal events
     const modal = document.getElementById('modal-despesa');
-    const closeBtn = modal.querySelector('.close');
+    if (modal) {
+        const closeBtn = modal.querySelector('.close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModalDespesa);
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModalDespesa();
+        });
+    }
 
-    closeBtn.addEventListener('click', closeModalDespesa);
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeModalDespesa();
-    });
-
-    document.getElementById('form-despesa').addEventListener('submit', saveDespesa);
+    const form = document.getElementById('form-despesa');
+    if (form) {
+        form.addEventListener('submit', saveDespesa);
+    }
 
     // Type change event
-    document.getElementById('despesa-tipo').addEventListener('change', toggleTipoFields);
+    const tipoSelect = document.getElementById('despesa-tipo');
+    if (tipoSelect) {
+        tipoSelect.addEventListener('change', toggleTipoFields);
+    }
 
     // Filter events
-    document.getElementById('filter-descricao').addEventListener('input', filterDespesas);
-    document.getElementById('filter-categoria').addEventListener('change', filterDespesas);
-    document.getElementById('filter-status').addEventListener('change', filterDespesas);
-    document.getElementById('filter-mes').addEventListener('change', filterDespesas);
+    const filterDescricao = document.getElementById('filter-descricao');
+    if (filterDescricao) {
+        filterDescricao.addEventListener('input', filterDespesas);
+    }
+
+    const filterCategoria = document.getElementById('filter-categoria');
+    if (filterCategoria) {
+        filterCategoria.addEventListener('change', filterDespesas);
+    }
+
+    const filterStatus = document.getElementById('filter-status');
+    if (filterStatus) {
+        filterStatus.addEventListener('change', filterDespesas);
+    }
+
+    const filterMes = document.getElementById('filter-mes');
+    if (filterMes) {
+        filterMes.addEventListener('change', filterDespesas);
+    }
 
     // Set default date to today
-    document.getElementById('despesa-data').value = new Date().toISOString().split('T')[0];
+    const dataInput = document.getElementById('despesa-data');
+    if (dataInput) {
+        dataInput.value = new Date().toISOString().split('T')[0];
+    }
 }
 
 function loadDespesas() {
@@ -311,14 +381,18 @@ function loadDespesas() {
         })
         .catch(error => {
             console.error('Erro ao carregar despesas:', error);
-            document.getElementById('despesas-tabela').innerHTML = 
-                '<div style="padding: 40px; text-align: center; color: #ff0000;">Erro ao carregar despesas: ' + error.message + '</div>';
+            const tabela = document.getElementById('despesas-tabela');
+            if (tabela) {
+                tabela.innerHTML = '<div style="padding: 40px; text-align: center; color: #ff0000;">Erro ao carregar despesas: ' + error.message + '</div>';
+            }
         });
 }
 
 function populateMonthFilter() {
     const months = [...new Set(despesasData.map(d => d.data.substring(0, 7)))].sort();
     const filterMes = document.getElementById('filter-mes');
+
+    if (!filterMes) return;
 
     // Clear existing options except the first one
     filterMes.innerHTML = '<option value="">Todos os meses</option>';
@@ -336,8 +410,6 @@ function populateMonthFilter() {
         filterMes.appendChild(option);
     });
 }
-
-
 
 function renderDespesasTabela() {
     console.log('Renderizando tabela de despesas...');
@@ -361,10 +433,6 @@ function renderDespesasTabela() {
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
-
-    // Get current month
-    const today = new Date();
-    const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
 
     // Sort months from newest to oldest
     const sortedMonths = Object.keys(groupedByMonth).sort((a, b) => {
@@ -441,8 +509,6 @@ function getTipoDescricao(despesa) {
     return 'Única';
 }
 
-
-
 function updateResumoFinanceiro() {
     // Calcular saldo histórico baseado nos dados
     const despesasValidadas = despesasData.filter(d => d.status === 'validado');
@@ -495,31 +561,53 @@ function updateResumoCategorias() {
 }
 
 function openNovaDespesaModal() {
-    document.getElementById('modal-title').textContent = 'Nova Despesa';
-    document.getElementById('form-despesa').reset();
-    document.getElementById('despesa-data').value = new Date().toISOString().split('T')[0];
+    const modalTitle = document.getElementById('modal-title');
+    if (modalTitle) {
+        modalTitle.textContent = 'Nova Despesa';
+    }
+    
+    const form = document.getElementById('form-despesa');
+    if (form) {
+        form.reset();
+    }
+    
+    const dataInput = document.getElementById('despesa-data');
+    if (dataInput) {
+        dataInput.value = new Date().toISOString().split('T')[0];
+    }
+    
     toggleTipoFields();
-    document.getElementById('modal-despesa').style.display = 'block';
+    
+    const modal = document.getElementById('modal-despesa');
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
 function closeModalDespesa() {
-    document.getElementById('modal-despesa').style.display = 'none';
+    const modal = document.getElementById('modal-despesa');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function toggleTipoFields() {
-    const tipo = document.getElementById('despesa-tipo').value;
+    const tipo = document.getElementById('despesa-tipo');
     const parcelamentoFields = document.getElementById('parcelamento-fields');
     const recorrenciaFields = document.getElementById('recorrencia-fields');
+    
+    if (!tipo || !parcelamentoFields || !recorrenciaFields) return;
 
-    parcelamentoFields.classList.toggle('hidden', tipo !== 'parcelada');
-    recorrenciaFields.classList.toggle('hidden', tipo !== 'recorrente');
+    parcelamentoFields.classList.toggle('hidden', tipo.value !== 'parcelada');
+    recorrenciaFields.classList.toggle('hidden', tipo.value !== 'recorrente');
 }
 
 async function saveDespesa(e) {
     e.preventDefault();
 
     const formData = new FormData();
-    const anexoFile = document.getElementById('despesa-anexo').files[0];
+    const anexoInput = document.getElementById('despesa-anexo');
+    const anexoFile = anexoInput ? anexoInput.files[0] : null;
     let anexoFilename = null;
 
     // Upload file if present
@@ -558,10 +646,17 @@ async function saveDespesa(e) {
     };
 
     if (data.tipo === 'parcelada') {
-        data.parcelas_total = parseInt(document.getElementById('parcelas-total').value);
-        data.parcela_atual = parseInt(document.getElementById('parcela-atual').value);
+        const parcelasTotal = document.getElementById('parcelas-total');
+        const parcelaAtual = document.getElementById('parcela-atual');
+        if (parcelasTotal && parcelaAtual) {
+            data.parcelas_total = parseInt(parcelasTotal.value);
+            data.parcela_atual = parseInt(parcelaAtual.value);
+        }
     } else if (data.tipo === 'recorrente') {
-        data.recorrente_ate = document.getElementById('recorrente-ate').value;
+        const recorrenteAte = document.getElementById('recorrente-ate');
+        if (recorrenteAte) {
+            data.recorrente_ate = recorrenteAte.value;
+        }
     }
 
     fetch('/api/despesas/salvar', {
@@ -607,30 +702,32 @@ function validarDespesa(despesaId) {
 }
 
 function filterDespesas() {
-    const descricaoFilter = document.getElementById('filter-descricao').value.toLowerCase();
-    const categoriaFilter = document.getElementById('filter-categoria').value;
-    const statusFilter = document.getElementById('filter-status').value;
-    const mesFilter = document.getElementById('filter-mes').value;
+    const descricaoFilter = document.getElementById('filter-descricao');
+    const categoriaFilter = document.getElementById('filter-categoria');
+    const statusFilter = document.getElementById('filter-status');
+    const mesFilter = document.getElementById('filter-mes');
+
+    if (!descricaoFilter || !categoriaFilter || !statusFilter || !mesFilter) return;
+
+    const descricaoValue = descricaoFilter.value.toLowerCase();
+    const categoriaValue = categoriaFilter.value;
+    const statusValue = statusFilter.value;
+    const mesValue = mesFilter.value;
 
     const filtered = despesasData.filter(despesa => {
-        const matchDescricao = !descricaoFilter || despesa.descricao.toLowerCase().includes(descricaoFilter);
-        const matchCategoria = !categoriaFilter || despesa.categoria === categoriaFilter;
-        const matchStatus = !statusFilter || despesa.status === statusFilter;
-        const matchMes = !mesFilter || despesa.data.startsWith(mesFilter);
+        const matchDescricao = !descricaoValue || despesa.descricao.toLowerCase().includes(descricaoValue);
+        const matchCategoria = !categoriaValue || despesa.categoria === categoriaValue;
+        const matchStatus = !statusValue || despesa.status === statusValue;
+        const matchMes = !mesValue || despesa.data.startsWith(mesValue);
 
         return matchDescricao && matchCategoria && matchStatus && matchMes;
     });
 
-    const isTableView = document.getElementById('despesas-tabela').style.display !== 'none';
-    if (isTableView) {
-        // For table view, we need to update the global data and re-render
-        const originalData = despesasData;
-        despesasData = filtered;
-        renderDespesasTabela();
-        despesasData = originalData;
-    } else {
-        renderDespesasTabela(filtered);
-    }
+    // For table view, we need to update the global data and re-render
+    const originalData = despesasData;
+    despesasData = filtered;
+    renderDespesasTabela();
+    despesasData = originalData;
 }
 
 // Utility functions
@@ -649,34 +746,6 @@ function formatCurrency(value) {
         style: 'currency',
         currency: 'BRL'
     }).format(value);
-}
-
-function calculateCalendarAnalytics() {
-    const analytics = {
-        leonardo: { planejado: 0, realizado: 0 },
-        taciana: { planejado: 0, realizado: 0 },
-        avos_paternos: { planejado: 0, realizado: 0 }
-    };
-
-    const today = new Date();
-    const currentMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
-
-    for (const [date, info] of Object.entries(calendarData)) {
-        if (date.startsWith(currentMonth)) {
-            const dayDate = new Date(date + 'T00:00:00');
-            const responsavel = info.responsavel;
-
-            if (analytics[responsavel]) {
-                if (dayDate <= today) {
-                    analytics[responsavel].realizado++;
-                } else {
-                    analytics[responsavel].planejado++;
-                }
-            }
-        }
-    }
-
-    return analytics;
 }
 
 function showAnexo(filename) {
@@ -732,3 +801,43 @@ function closeAnexoModal() {
         modal.style.display = 'none';
     }
 }
+
+// Hamburger menu functionality
+function toggleMenu() {
+    const dropdown = document.getElementById('hamburger-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+    }
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const menu = document.querySelector('.hamburger-menu');
+    const dropdown = document.getElementById('hamburger-dropdown');
+
+    if (dropdown && menu && !menu.contains(event.target)) {
+        dropdown.classList.remove('show');
+    }
+});
+
+// Close menu when pressing Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const dropdown = document.getElementById('hamburger-dropdown');
+        if (dropdown) {
+            dropdown.classList.remove('show');
+        }
+    }
+});
+
+// Initialize page functionality based on current page
+document.addEventListener('DOMContentLoaded', function() {
+    // Check which page we're on and initialize accordingly
+    if (document.getElementById('calendar')) {
+        initCalendar();
+    }
+    
+    if (document.getElementById('despesas-tabela')) {
+        initConta();
+    }
+});

@@ -1,0 +1,159 @@
+
+{% extends "base.html" %}
+
+{% block title %}Consultas e Receitas - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Consultas Médicas e Receitas</h1>
+    <button class="btn btn-primary" onclick="abrirModalConsulta()">+ Nova Consulta</button>
+</div>
+
+<div class="consultas-container">
+    <div class="consultas-grid" id="consultas-grid">
+        <!-- Consultas serão carregadas aqui -->
+    </div>
+</div>
+
+<!-- Modal simplificado -->
+<div id="modal-consulta" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Nova Consulta</h3>
+            <span class="close" onclick="fecharModalConsulta()">&times;</span>
+        </div>
+        <form id="consulta-form">
+            <div class="form-group">
+                <label for="data_consulta">Data</label>
+                <input type="date" id="data_consulta" name="data_consulta" required>
+            </div>
+            <div class="form-group">
+                <label for="medico">Médico/Especialista</label>
+                <input type="text" id="medico" name="medico" required>
+            </div>
+            <div class="form-group">
+                <label for="especialidade">Especialidade</label>
+                <input type="text" id="especialidade" name="especialidade">
+            </div>
+            <div class="form-group">
+                <label for="motivo">Motivo da Consulta</label>
+                <textarea id="motivo" name="motivo" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="observacoes_consulta">Observações/Receita</label>
+                <textarea id="observacoes_consulta" name="observacoes_consulta" rows="4"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalConsulta()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let consultas = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('data_consulta').value = new Date().toISOString().split('T')[0];
+    carregarConsultas();
+    
+    document.getElementById('consulta-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarConsulta();
+    });
+});
+
+function carregarConsultas() {
+    fetch('/api/consultas')
+        .then(response => response.json())
+        .then(data => {
+            consultas = data.sort((a, b) => new Date(b.data_consulta) - new Date(a.data_consulta));
+            renderizarConsultas();
+        });
+}
+
+function renderizarConsultas() {
+    const grid = document.getElementById('consultas-grid');
+    
+    if (consultas.length === 0) {
+        grid.innerHTML = '<p class="empty-state">Nenhuma consulta registrada.</p>';
+        return;
+    }
+    
+    grid.innerHTML = consultas.map(consulta => `
+        <div class="consulta-card">
+            <div class="consulta-date">${formatarData(consulta.data_consulta)}</div>
+            <h3>${consulta.medico}</h3>
+            <p class="especialidade">${consulta.especialidade || 'Clínico Geral'}</p>
+            ${consulta.motivo ? `<p><strong>Motivo:</strong> ${consulta.motivo}</p>` : ''}
+            ${consulta.observacoes_consulta ? `<div class="observacoes">${consulta.observacoes_consulta}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+function abrirModalConsulta() {
+    document.getElementById('modal-consulta').style.display = 'block';
+}
+
+function fecharModalConsulta() {
+    document.getElementById('modal-consulta').style.display = 'none';
+    document.getElementById('consulta-form').reset();
+    document.getElementById('data_consulta').value = new Date().toISOString().split('T')[0];
+}
+
+function salvarConsulta() {
+    const formData = new FormData(document.getElementById('consulta-form'));
+    const data = Object.fromEntries(formData);
+    
+    fetch('/api/consultas/salvar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalConsulta();
+            carregarConsultas();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR');
+}
+</script>
+
+<style>
+.consulta-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-left: 4px solid #28a745;
+}
+
+.consulta-date {
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.especialidade {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.observacoes {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    white-space: pre-wrap;
+}
+</style>
+{% endblock %}

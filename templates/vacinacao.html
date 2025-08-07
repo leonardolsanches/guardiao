@@ -1,0 +1,168 @@
+
+{% extends "base.html" %}
+
+{% block title %}Carteira de Vacinação - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Carteira de Vacinação</h1>
+    <button class="btn btn-primary" onclick="abrirModalVacina()">+ Nova Vacina</button>
+</div>
+
+<div class="vacinacao-container">
+    <div class="vacinas-grid" id="vacinas-grid">
+        <!-- Vacinas serão carregadas aqui -->
+    </div>
+</div>
+
+<!-- Modal para adicionar vacina -->
+<div id="modal-vacina" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Registrar Vacina</h3>
+            <span class="close" onclick="fecharModalVacina()">&times;</span>
+        </div>
+        <form id="vacina-form">
+            <div class="form-group">
+                <label for="nome_vacina">Nome da Vacina</label>
+                <input type="text" id="nome_vacina" name="nome_vacina" required>
+            </div>
+            <div class="form-group">
+                <label for="data_aplicacao">Data de Aplicação</label>
+                <input type="date" id="data_aplicacao" name="data_aplicacao" required>
+            </div>
+            <div class="form-group">
+                <label for="dose">Dose</label>
+                <select id="dose" name="dose" required>
+                    <option value="">Selecione</option>
+                    <option value="1ª dose">1ª dose</option>
+                    <option value="2ª dose">2ª dose</option>
+                    <option value="3ª dose">3ª dose</option>
+                    <option value="Reforço">Reforço</option>
+                    <option value="Dose única">Dose única</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="local_aplicacao">Local de Aplicação</label>
+                <input type="text" id="local_aplicacao" name="local_aplicacao" placeholder="Ex: Posto de Saúde, Clínica">
+            </div>
+            <div class="form-group">
+                <label for="lote">Lote</label>
+                <input type="text" id="lote" name="lote">
+            </div>
+            <div class="form-group">
+                <label for="proxima_dose">Próxima Dose (se aplicável)</label>
+                <input type="date" id="proxima_dose" name="proxima_dose">
+            </div>
+            <div class="form-group">
+                <label for="observacoes_vacina">Observações</label>
+                <textarea id="observacoes_vacina" name="observacoes_vacina" rows="3"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar Vacina</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalVacina()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let vacinas = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarVacinas();
+    
+    document.getElementById('vacina-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarVacina();
+    });
+});
+
+function carregarVacinas() {
+    fetch('/api/vacinacao')
+        .then(response => response.json())
+        .then(data => {
+            vacinas = data;
+            renderizarVacinas();
+        });
+}
+
+function renderizarVacinas() {
+    const grid = document.getElementById('vacinas-grid');
+    
+    if (vacinas.length === 0) {
+        grid.innerHTML = '<p class="empty-state">Nenhuma vacina registrada ainda.</p>';
+        return;
+    }
+    
+    // Agrupar por vacina
+    const vacinasAgrupadas = {};
+    vacinas.forEach(vacina => {
+        if (!vacinasAgrupadas[vacina.nome_vacina]) {
+            vacinasAgrupadas[vacina.nome_vacina] = [];
+        }
+        vacinasAgrupadas[vacina.nome_vacina].push(vacina);
+    });
+    
+    grid.innerHTML = Object.keys(vacinasAgrupadas).map(nomeVacina => {
+        const doses = vacinasAgrupadas[nomeVacina].sort((a, b) => new Date(a.data_aplicacao) - new Date(b.data_aplicacao));
+        
+        return `
+            <div class="vacina-card">
+                <h3>${nomeVacina}</h3>
+                <div class="doses-list">
+                    ${doses.map(dose => `
+                        <div class="dose-item">
+                            <div class="dose-info">
+                                <strong>${dose.dose}</strong>
+                                <span class="dose-date">${formatarData(dose.data_aplicacao)}</span>
+                            </div>
+                            <div class="dose-details">
+                                <small>Local: ${dose.local_aplicacao || 'Não informado'}</small>
+                                ${dose.lote ? `<small>Lote: ${dose.lote}</small>` : ''}
+                                ${dose.proxima_dose ? `<small class="proxima-dose">Próxima: ${formatarData(dose.proxima_dose)}</small>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function abrirModalVacina() {
+    document.getElementById('modal-vacina').style.display = 'block';
+}
+
+function fecharModalVacina() {
+    document.getElementById('modal-vacina').style.display = 'none';
+    document.getElementById('vacina-form').reset();
+}
+
+function salvarVacina() {
+    const formData = new FormData(document.getElementById('vacina-form'));
+    const data = Object.fromEntries(formData);
+    
+    fetch('/api/vacinacao/salvar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalVacina();
+            carregarVacinas();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,275 @@
+
+{% extends "base.html" %}
+
+{% block title %}Marcos do Desenvolvimento - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Marcos do Desenvolvimento</h1>
+    <p>Registre os momentos especiais da vida do Theo</p>
+    <button class="btn btn-primary" onclick="abrirModalMarco()">+ Novo Marco</button>
+</div>
+
+<div class="marcos-container">
+    <div class="marcos-timeline" id="marcos-timeline">
+        <!-- Marcos serão carregados aqui -->
+    </div>
+</div>
+
+<!-- Modal para adicionar marco -->
+<div id="modal-marco" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Registrar Marco</h3>
+            <span class="close" onclick="fecharModalMarco()">&times;</span>
+        </div>
+        <form id="marco-form">
+            <div class="form-group">
+                <label for="titulo_marco">Título do Marco</label>
+                <input type="text" id="titulo_marco" name="titulo_marco" required placeholder="Ex: Primeiro dente, Primeira palavra...">
+            </div>
+            <div class="form-group">
+                <label for="data_marco">Data</label>
+                <input type="date" id="data_marco" name="data_marco" required>
+            </div>
+            <div class="form-group">
+                <label for="categoria_marco">Categoria</label>
+                <select id="categoria_marco" name="categoria_marco" required>
+                    <option value="">Selecione</option>
+                    <option value="fisico">Desenvolvimento Físico</option>
+                    <option value="linguagem">Linguagem</option>
+                    <option value="social">Social/Emocional</option>
+                    <option value="cognitivo">Cognitivo</option>
+                    <option value="escola">Escola</option>
+                    <option value="especial">Momento Especial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="descricao_marco">Descrição</label>
+                <textarea id="descricao_marco" name="descricao_marco" rows="4" placeholder="Descreva este momento especial..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="idade_marco">Idade na época</label>
+                <input type="text" id="idade_marco" name="idade_marco" placeholder="Ex: 6 meses, 2 anos e 3 meses...">
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar Marco</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalMarco()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let marcos = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    carregarMarcos();
+    
+    document.getElementById('marco-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarMarco();
+    });
+});
+
+function carregarMarcos() {
+    fetch('/api/marcos')
+        .then(response => response.json())
+        .then(data => {
+            marcos = data.sort((a, b) => new Date(a.data_marco) - new Date(b.data_marco));
+            renderizarTimeline();
+        });
+}
+
+function renderizarTimeline() {
+    const timeline = document.getElementById('marcos-timeline');
+    
+    if (marcos.length === 0) {
+        timeline.innerHTML = '<p class="empty-state">Nenhum marco registrado ainda. Que tal começar registrando o primeiro dente ou a primeira palavra?</p>';
+        return;
+    }
+    
+    // Agrupar por ano
+    const marcosPorAno = {};
+    marcos.forEach(marco => {
+        const ano = new Date(marco.data_marco).getFullYear();
+        if (!marcosPorAno[ano]) {
+            marcosPorAno[ano] = [];
+        }
+        marcosPorAno[ano].push(marco);
+    });
+    
+    timeline.innerHTML = Object.keys(marcosPorAno).sort().map(ano => `
+        <div class="ano-section">
+            <h3 class="ano-titulo">${ano}</h3>
+            <div class="marcos-ano">
+                ${marcosPorAno[ano].map(marco => `
+                    <div class="marco-item categoria-${marco.categoria_marco}">
+                        <div class="marco-data">
+                            ${formatarData(marco.data_marco)}
+                        </div>
+                        <div class="marco-conteudo">
+                            <h4>${marco.titulo_marco}</h4>
+                            ${marco.idade_marco ? `<span class="marco-idade">${marco.idade_marco}</span>` : ''}
+                            <p>${marco.descricao_marco || 'Sem descrição'}</p>
+                            <small class="marco-categoria">${getCategoriaLabel(marco.categoria_marco)}</small>
+                            <small class="marco-autor">Registrado por ${marco.registrado_por}</small>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function getCategoriaLabel(categoria) {
+    const labels = {
+        'fisico': 'Desenvolvimento Físico',
+        'linguagem': 'Linguagem',
+        'social': 'Social/Emocional',
+        'cognitivo': 'Cognitivo',
+        'escola': 'Escola',
+        'especial': 'Momento Especial'
+    };
+    return labels[categoria] || categoria;
+}
+
+function abrirModalMarco() {
+    document.getElementById('modal-marco').style.display = 'block';
+}
+
+function fecharModalMarco() {
+    document.getElementById('modal-marco').style.display = 'none';
+    document.getElementById('marco-form').reset();
+}
+
+function salvarMarco() {
+    const formData = new FormData(document.getElementById('marco-form'));
+    const data = Object.fromEntries(formData);
+    
+    fetch('/api/marcos/salvar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalMarco();
+            carregarMarcos();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR');
+}
+</script>
+
+<style>
+.marcos-timeline {
+    position: relative;
+}
+
+.ano-section {
+    margin-bottom: 40px;
+}
+
+.ano-titulo {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.marcos-ano {
+    position: relative;
+    padding-left: 30px;
+}
+
+.marcos-ano::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #667eea, #764ba2);
+}
+
+.marco-item {
+    position: relative;
+    margin-bottom: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.marco-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #667eea;
+    z-index: 1;
+}
+
+.categoria-fisico::before { border-color: #28a745; }
+.categoria-linguagem::before { border-color: #007bff; }
+.categoria-social::before { border-color: #e83e8c; }
+.categoria-cognitivo::before { border-color: #6f42c1; }
+.categoria-escola::before { border-color: #fd7e14; }
+.categoria-especial::before { border-color: #ffc107; }
+
+.marco-data {
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.marco-conteudo h4 {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.marco-idade {
+    background: #f8f9fa;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.marco-conteudo p {
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.marco-categoria,
+.marco-autor {
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.marco-categoria {
+    font-weight: 600;
+}
+</style>
+{% endblock %}

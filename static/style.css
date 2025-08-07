@@ -93,22 +93,144 @@ body {
     margin: 0;
 }
 
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 8px 12px;
     border-radius: 5px;
     transition: background-color 0.3s;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     background-color: rgba(255,255,255,0.2);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    position: relative;
+    display: block;
+}
+
+.hamburger-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.hamburger-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.menu-text {
+    font-size: 0.9rem;
+}
+
+.hamburger-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    min-width: 320px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 10px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.hamburger-dropdown.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.menu-section h4 {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    padding: 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.menu-section a {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.menu-section a:hover {
+    background: #f8f9fa;
+    color: #667eea;
+    transform: translateX(5px);
 }
 
 /* Container */
@@ -789,6 +911,108 @@ body {
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* Feature placeholder styles */
+.feature-placeholder {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.feature-placeholder h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.feature-placeholder p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Document card styles */
+.documentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.documento-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.categoria-identidade { border-left-color: #28a745; }
+.categoria-escola { border-left-color: #fd7e14; }
+.categoria-saude { border-left-color: #dc3545; }
+.categoria-outros { border-left-color: #6c757d; }
+
+.documento-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.documento-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.documento-categoria {
+    background: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.documento-info p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/* Consultas styles */
+.consultas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.consulta-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-left: 4px solid #28a745;
+}
+
+.consulta-date {
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.especialidade {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.observacoes {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    white-space: pre-wrap;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .nav-container {
@@ -796,9 +1020,40 @@ body {
         gap: 15px;
     }
 
-    .nav-links {
-        flex-wrap: wrap;
+    .nav-menu {
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
         justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-menu .btn-nav {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+
+    .hamburger-dropdown {
+        position: fixed;
+        top: 120px;
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+        max-height: calc(100vh - 140px);
+    }
+
+    .menu-section {
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+
+    .menu-section h4 {
+        font-size: 0.8rem;
+    }
+
+    .menu-section a {
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
 
     .calendar-header {
@@ -855,6 +1110,22 @@ body {
     }
 }
 
+/* Always show hamburger menu */
+.hamburger-menu {
+    display: block !important;
+}
+
+/* Hide some nav links on smaller screens */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .nav-menu {
+        justify-content: flex-end;
+    }
+}
+
 @media (max-width: 480px) {
     .container {
         padding: 10px;
@@ -871,5 +1142,14 @@ body {
     .calendar-day {
         min-height: 50px;
         padding: 5px;
+    }
+    
+    .nav-menu {
+        gap: 5px;
+    }
+    
+    .nav-menu .btn-nav {
+        font-size: 0.7rem;
+        padding: 4px 6px;
     }
 }

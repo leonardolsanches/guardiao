@@ -1,0 +1,285 @@
+
+{% extends "base.html" %}
+
+{% block title %}Crescimento - Guarda Theo{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Controle de Peso e Altura</h1>
+    <button class="btn btn-primary" onclick="abrirModalMedicao()">+ Nova Medição</button>
+</div>
+
+<div class="crescimento-container">
+    <div class="resumo-crescimento">
+        <div class="resumo-card">
+            <h3>Última Medição</h3>
+            <div id="ultima-medicao">Carregando...</div>
+        </div>
+        <div class="resumo-card">
+            <h3>Crescimento no Ano</h3>
+            <div id="crescimento-ano">Carregando...</div>
+        </div>
+    </div>
+
+    <div class="grafico-container">
+        <canvas id="grafico-crescimento" width="800" height="400"></canvas>
+    </div>
+
+    <div class="medicoes-tabela">
+        <h3>Histórico de Medições</h3>
+        <table id="tabela-medicoes" class="medicoes-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Idade</th>
+                    <th>Peso (kg)</th>
+                    <th>Altura (cm)</th>
+                    <th>IMC</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody id="medicoes-tbody">
+                <!-- Medições serão carregadas aqui -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal para adicionar medição -->
+<div id="modal-medicao" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Nova Medição</h3>
+            <span class="close" onclick="fecharModalMedicao()">&times;</span>
+        </div>
+        <form id="medicao-form">
+            <div class="form-group">
+                <label for="data_medicao">Data da Medição</label>
+                <input type="date" id="data_medicao" name="data_medicao" required>
+            </div>
+            <div class="form-group">
+                <label for="peso">Peso (kg)</label>
+                <input type="number" id="peso" name="peso" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="altura">Altura (cm)</label>
+                <input type="number" id="altura" name="altura" step="0.1" required>
+            </div>
+            <div class="form-group">
+                <label for="observacoes_medicao">Observações</label>
+                <textarea id="observacoes_medicao" name="observacoes_medicao" rows="3" placeholder="Ex: Medição no pediatra, em jejum, etc."></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar Medição</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalMedicao()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+let medicoes = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Definir data atual como padrão
+    document.getElementById('data_medicao').value = new Date().toISOString().split('T')[0];
+    
+    carregarMedicoes();
+    
+    document.getElementById('medicao-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        salvarMedicao();
+    });
+});
+
+function carregarMedicoes() {
+    fetch('/api/crescimento')
+        .then(response => response.json())
+        .then(data => {
+            medicoes = data.sort((a, b) => new Date(b.data_medicao) - new Date(a.data_medicao));
+            renderizarTabela();
+            atualizarResumo();
+            criarGrafico();
+        });
+}
+
+function renderizarTabela() {
+    const tbody = document.getElementById('medicoes-tbody');
+    
+    if (medicoes.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhuma medição registrada ainda.</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = medicoes.map(medicao => {
+        const imc = calcularIMC(medicao.peso, medicao.altura);
+        const idade = calcularIdade(medicao.data_medicao);
+        
+        return `
+            <tr>
+                <td>${formatarData(medicao.data_medicao)}</td>
+                <td>${idade}</td>
+                <td>${medicao.peso} kg</td>
+                <td>${medicao.altura} cm</td>
+                <td>${imc}</td>
+                <td>${medicao.observacoes_medicao || '-'}</td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function atualizarResumo() {
+    const ultimaMedicao = document.getElementById('ultima-medicao');
+    const crescimentoAno = document.getElementById('crescimento-ano');
+    
+    if (medicoes.length === 0) {
+        ultimaMedicao.innerHTML = 'Nenhuma medição';
+        crescimentoAno.innerHTML = 'Sem dados';
+        return;
+    }
+    
+    const ultima = medicoes[0];
+    ultimaMedicao.innerHTML = `
+        <div class="medicao-info">
+            <span>${ultima.peso} kg | ${ultima.altura} cm</span>
+            <small>${formatarData(ultima.data_medicao)}</small>
+        </div>
+    `;
+    
+    // Calcular crescimento no ano
+    const anoAtual = new Date().getFullYear();
+    const medicoesAno = medicoes.filter(m => new Date(m.data_medicao).getFullYear() === anoAtual);
+    
+    if (medicoesAno.length >= 2) {
+        const primeira = medicoesAno[medicoesAno.length - 1];
+        const ultima = medicoesAno[0];
+        const crescimentoPeso = (ultima.peso - primeira.peso).toFixed(1);
+        const crescimentoAltura = (ultima.altura - primeira.altura).toFixed(1);
+        
+        crescimentoAno.innerHTML = `
+            <div class="crescimento-info">
+                <span>+${crescimentoPeso} kg | +${crescimentoAltura} cm</span>
+                <small>em ${anoAtual}</small>
+            </div>
+        `;
+    } else {
+        crescimentoAno.innerHTML = 'Dados insuficientes';
+    }
+}
+
+function criarGrafico() {
+    const canvas = document.getElementById('grafico-crescimento');
+    const ctx = canvas.getContext('2d');
+    
+    if (medicoes.length === 0) return;
+    
+    // Dados para o gráfico (últimos 12 pontos)
+    const dadosGrafico = medicoes.slice(0, 12).reverse();
+    
+    // Limpar canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Configurações básicas
+    const padding = 60;
+    const width = canvas.width - 2 * padding;
+    const height = canvas.height - 2 * padding;
+    
+    // Encontrar min/max para escala
+    const pesos = dadosGrafico.map(m => m.peso);
+    const alturas = dadosGrafico.map(m => m.altura);
+    
+    const minPeso = Math.min(...pesos) - 2;
+    const maxPeso = Math.max(...pesos) + 2;
+    const minAltura = Math.min(...alturas) - 5;
+    const maxAltura = Math.max(...alturas) + 5;
+    
+    // Desenhar eixos
+    ctx.strokeStyle = '#ddd';
+    ctx.beginPath();
+    ctx.moveTo(padding, padding);
+    ctx.lineTo(padding, height + padding);
+    ctx.lineTo(width + padding, height + padding);
+    ctx.stroke();
+    
+    // Desenhar linha do peso
+    ctx.strokeStyle = '#007bff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    dadosGrafico.forEach((medicao, index) => {
+        const x = padding + (index / (dadosGrafico.length - 1)) * width;
+        const y = height + padding - ((medicao.peso - minPeso) / (maxPeso - minPeso)) * height;
+        
+        if (index === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    });
+    ctx.stroke();
+    
+    // Adicionar pontos
+    ctx.fillStyle = '#007bff';
+    dadosGrafico.forEach((medicao, index) => {
+        const x = padding + (index / (dadosGrafico.length - 1)) * width;
+        const y = height + padding - ((medicao.peso - minPeso) / (maxPeso - minPeso)) * height;
+        
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, 2 * Math.PI);
+        ctx.fill();
+    });
+}
+
+function calcularIMC(peso, altura) {
+    const alturaMetros = altura / 100;
+    const imc = peso / (alturaMetros * alturaMetros);
+    return imc.toFixed(1);
+}
+
+function calcularIdade(dataMedicao) {
+    // Assumindo nascimento em 2012 (ajustar conforme necessário)
+    const nascimento = new Date('2012-01-01');
+    const medicao = new Date(dataMedicao);
+    const diffMs = medicao - nascimento;
+    const anos = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+    const meses = Math.floor((diffMs % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+    
+    return `${anos}a ${meses}m`;
+}
+
+function abrirModalMedicao() {
+    document.getElementById('modal-medicao').style.display = 'block';
+}
+
+function fecharModalMedicao() {
+    document.getElementById('modal-medicao').style.display = 'none';
+    document.getElementById('medicao-form').reset();
+    document.getElementById('data_medicao').value = new Date().toISOString().split('T')[0];
+}
+
+function salvarMedicao() {
+    const formData = new FormData(document.getElementById('medicao-form'));
+    const data = Object.fromEntries(formData);
+    
+    fetch('/api/crescimento/salvar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.sucesso) {
+            fecharModalMedicao();
+            carregarMedicoes();
+        } else {
+            alert('Erro ao salvar: ' + result.erro);
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString('pt-BR');
+}
+</script>
+{% endblock %}
