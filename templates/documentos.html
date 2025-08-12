@@ -186,44 +186,51 @@ function formatarData(data) {
 }
 </script>
 
+{% block extra_css %}
 <style>
-.documento-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 20px;
-    border-left: 4px solid #007bff;
+.documentos-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.categoria-identidade { border-left-color: #28a745; }
-.categoria-escola { border-left-color: #fd7e14; }
-.categoria-saude { border-left-color: #dc3545; }
-.categoria-outros { border-left-color: #6c757d; }
-
-.documento-header {
+.documentos-categorias {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.documento-header h3 {
-    margin: 0;
-    color: #333;
-}
-
-.documento-categoria {
-    background: #f8f9fa;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    color: #666;
-}
-
-.documento-info p {
-    margin: 8px 0;
-    color: #555;
+.btn-categoria {
+    padding: 8px 16px;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
     font-size: 0.9rem;
 }
+
+.btn-categoria.active,
+.btn-categoria:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.documentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    grid-column: 1 / -1;
+    padding: 40px;
+}
 </style>
+{% endblock %}
 {% endblock %}

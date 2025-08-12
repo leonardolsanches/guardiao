@@ -4,78 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Guarda Theo{% endblock %}</title>
+    <title>{% block title %}Guarda do Theo{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="theo-logo">
-                <h1>Guarda Theo</h1>
+                <img src="{{ url_for('static', filename='uploads/theo_logo.png') }}" alt="Theo" class="nav-theo-logo">
+                <h1>Guarda do Theo</h1>
             </div>
+            
             <div class="nav-menu">
-                <!-- Links principais sempre visíveis -->
-                <div class="nav-links">
-                    <a href="{{ url_for('calendario') }}" class="btn btn-nav">📅 Calendário</a>
-                    <a href="{{ url_for('conta') }}" class="btn btn-nav">💰 Financeiro</a>
-                </div>
-                
-                <!-- Menu hambúrguer -->
                 <div class="hamburger-menu">
                     <button class="hamburger-btn" onclick="toggleMenu()">
                         <span class="hamburger-icon">☰</span>
                         <span class="menu-text">Menu</span>
                     </button>
+                    
                     <div class="hamburger-dropdown" id="hamburger-dropdown">
+                        <!-- Core Features -->
                         <div class="menu-section">
-                            <h4>👤 Perfil & Documentos</h4>
-                            <a href="{{ url_for('cadastro') }}">📋 Cadastro da Criança</a>
-                            <a href="{{ url_for('documentos') }}">📄 Documentos</a>
+                            <h4>Principal</h4>
+                            <a href="/calendario">📅 Calendário</a>
+                            <a href="/conta">💰 Conta Corrente</a>
+                            <a href="/cadastro">📝 Cadastro</a>
                         </div>
                         
+                        <!-- Documents & Health -->
                         <div class="menu-section">
-                            <h4>🏥 Saúde & Crescimento</h4>
-                            <a href="{{ url_for('vacinacao') }}">💉 Carteira de Vacinação</a>
-                            <a href="{{ url_for('consultas') }}">👩‍⚕️ Consultas & Receitas</a>
-                            <a href="{{ url_for('crescimento') }}">📏 Peso & Altura</a>
-                            <a href="{{ url_for('marcos') }}">🎯 Marcos de Desenvolvimento</a>
+                            <h4>Documentos & Saúde</h4>
+                            <a href="/documentos">📄 Documentos</a>
+                            <a href="/vacinacao">💉 Vacinação</a>
+                            <a href="/consultas">👩‍⚕️ Consultas</a>
                         </div>
                         
+                        <!-- School & Development -->
                         <div class="menu-section">
-                            <h4>🎓 Educação</h4>
-                            <a href="{{ url_for('boletim') }}">📊 Boletim Escolar</a>
-                            <a href="{{ url_for('calendario_escolar') }}">📅 Calendário Escolar</a>
+                            <h4>Escola & Desenvolvimento</h4>
+                            <a href="/boletim">📊 Boletim</a>
+                            <a href="/crescimento">📏 Crescimento</a>
+                            <a href="/marcos">🎯 Marcos</a>
+                            <a href="/calendario_escolar">🗓️ Calendário Escolar</a>
                         </div>
                         
+                        <!-- Organization -->
                         <div class="menu-section">
-                            <h4>🏠 Vida Cotidiana</h4>
-                            <a href="{{ url_for('mesada') }}">💵 Controle de Mesada</a>
-                            <a href="{{ url_for('agenda') }}">📝 Agenda Pessoal</a>
-                            <a href="{{ url_for('localizacao') }}">📍 Localização</a>
-                            <a href="{{ url_for('notas') }}">📝 Bloco de Notas Familiar</a>
+                            <h4>Organização</h4>
+                            <a href="/agenda">📝 Agenda</a>
+                            <a href="/notas">📋 Notas</a>
+                            <a href="/mesada">💳 Mesada</a>
                         </div>
                         
+                        <!-- Additional -->
                         <div class="menu-section">
-                            <h4>🛡️ Outros</h4>
-                            <a href="{{ url_for('seguros') }}">🛡️ Seguros</a>
-                            <a href="{{ url_for('mapa_astral') }}">⭐ Mapa Astral</a>
+                            <h4>Outros</h4>
+                            <a href="/seguros">🛡️ Seguros</a>
+                            <a href="/localizacao">📍 Localização</a>
+                            <a href="/mapa_astral">⭐ Mapa Astral</a>
+                        </div>
+                        
+                        <!-- User Actions -->
+                        <div class="menu-section">
+                            <h4>Usuário: {{ usuario|title }}</h4>
+                            <a href="/logout">🚪 Sair</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="nav-user">
-                <span>Olá, {{ usuario.title() }}!</span>
-                <a href="{{ url_for('logout') }}" class="btn btn-secondary">Sair</a>
-            </div>
         </div>
     </nav>
 
-    <main class="main-container">
+    <!-- Main Content -->
+    <div class="container">
         {% block content %}{% endblock %}
-    </main>
+    </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    {% block scripts %}{% endblock %}
+    <!-- JavaScript -->
+    <script>
+        function toggleMenu() {
+            const dropdown = document.getElementById('hamburger-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.querySelector('.hamburger-menu');
+            const dropdown = document.getElementById('hamburger-dropdown');
+            
+            if (!menu.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Close menu when pressing Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('hamburger-dropdown').classList.remove('show');
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

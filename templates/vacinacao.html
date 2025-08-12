@@ -3,6 +3,138 @@
 
 {% block title %}Carteira de Vacinação - Guarda Theo{% endblock %}
 
+{% block extra_css %}
+<style>
+.vacinacao-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vacinas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.vacina-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-left: 4px solid #28a745;
+}
+
+.vacina-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.doses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dose-item {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.dose-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.dose-info strong {
+    color: #28a745;
+}
+
+.dose-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.dose-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dose-details small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.proxima-dose {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #28a745;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h1>Carteira de Vacinação</h1>

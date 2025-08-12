@@ -2,12 +2,81 @@
 {% extends "base.html" %}
 {% block title %}Mesada - Guarda Theo{% endblock %}
 {% block content %}
-<div class="page-header">
-    <h1>Controle de Mesada</h1>
-    <p>Gestão da mesada do Theo</p>
+<div class="container">
+    <div class="page-header">
+        <h1>💰 Controle de Mesada</h1>
+        <p>Gestão da mesada do Theo</p>
+        <button class="btn btn-primary" onclick="abrirModalMesada()">➕ Registrar Mesada</button>
+    </div>
+
+    <div class="mesada-resumo">
+        <div class="resumo-card">
+            <h3>Saldo Atual</h3>
+            <div class="valor saldo-atual">R$ 0,00</div>
+        </div>
+        <div class="resumo-card">
+            <h3>Recebido no Mês</h3>
+            <div class="valor recebido-mes">R$ 0,00</div>
+        </div>
+        <div class="resumo-card">
+            <h3>Gasto no Mês</h3>
+            <div class="valor gasto-mes">R$ 0,00</div>
+        </div>
+    </div>
+
+    <div class="mesada-historico">
+        <h2>Histórico de Mesada</h2>
+        <div id="mesada-lista" class="despesas-lista">
+            <div class="feature-placeholder">
+                <h3>💰 Em Desenvolvimento</h3>
+                <p>Sistema de controle de mesada será implementado em breve</p>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="feature-placeholder">
-    <h3>💰 Mesada</h3>
-    <p>Em desenvolvimento - Controle de valores e gastos da mesada</p>
+
+<!-- Modal para adicionar mesada -->
+<div id="modal-mesada" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModalMesada()">&times;</span>
+        <h2>💰 Registrar Mesada</h2>
+        <form id="mesada-form">
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="data">Data:</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+                <div class="input-group">
+                    <label for="valor">Valor:</label>
+                    <input type="number" id="valor" name="valor" step="0.01" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="recebimento">💰 Recebimento</option>
+                    <option value="gasto">💸 Gasto</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" name="descricao" required>
+            </div>
+            <div class="modal-buttons">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn btn-secondary" onclick="fecharModalMesada()">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script>
+function abrirModalMesada() {
+    document.getElementById('modal-mesada').style.display = 'block';
+}
+
+function fecharModalMesada() {
+    document.getElementById('modal-mesada').style.display = 'none';
+}
+</script>
 {% endblock %}
