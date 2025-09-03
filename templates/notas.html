@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}Notas Compartilhadas - Guarda Theo{% endblock %}
@@ -65,13 +64,127 @@
     </div>
 </div>
 
+<style>
+.bloco-notas {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+    overflow: hidden;
+    border: 3px solid #8B4513;
+}
+
+.caderno-capa {
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.caderno-capa h3 {
+    margin: 0 0 8px 0;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.6rem;
+}
+
+.caderno-capa p {
+    margin: 0;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+.caderno-pagina {
+    background: #fffef7;
+    padding: 30px;
+    min-height: 500px;
+    background-image: 
+        linear-gradient(90deg, #ff6b6b 25px, transparent 25px),
+        linear-gradient(#e8e8e8 1px, transparent 1px);
+    background-size: 100% 100%, 100% 25px;
+    background-position: 0 0, 0 10px;
+}
+
+.pagina-header {
+    margin-bottom: 20px;
+    padding-left: 40px;
+}
+
+.data-hoje {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.linhas-caderno {
+    padding-left: 40px;
+}
+
+.texto-cursivo {
+    width: 100%;
+    height: 400px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Brush Script MT', 'Comic Sans MS', cursive;
+    font-size: 1.3rem;
+    line-height: 25px;
+    color: #2c3e50;
+    resize: none;
+    padding: 0;
+    margin: 0;
+}
+
+.texto-cursivo::placeholder {
+    color: #95a5a6;
+    font-style: italic;
+}
+
+.pagina-footer {
+    padding-left: 40px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-salvar {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.btn-salvar:hover {
+    background: #2980b9;
+}
+
+.status-save {
+    font-family: 'Comic Sans MS', cursive;
+    color: #27ae60;
+    font-size: 0.9rem;
+}
+
+.empty-state {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+</style>
+
 <script>
 let notas = [];
 let categoriaAtiva = 'todas';
 
 document.addEventListener('DOMContentLoaded', function() {
     carregarNotas();
-    
+
     document.getElementById('nota-form').addEventListener('submit', function(e) {
         e.preventDefault();
         salvarNota();
@@ -89,17 +202,17 @@ function carregarNotas() {
 
 function renderizarNotas() {
     const grid = document.getElementById('notas-grid');
-    
+
     let notasFiltradas = notas;
     if (categoriaAtiva !== 'todas') {
         notasFiltradas = notas.filter(nota => nota.categoria === categoriaAtiva);
     }
-    
+
     if (notasFiltradas.length === 0) {
         grid.innerHTML = '<p class="empty-state">Nenhuma nota encontrada nesta categoria.</p>';
         return;
     }
-    
+
     grid.innerHTML = notasFiltradas.map(nota => `
         <div class="nota-card ${nota.importante ? 'importante' : ''}" data-categoria="${nota.categoria}">
             <div class="nota-header">
@@ -138,23 +251,23 @@ function formatarConteudo(conteudo) {
     // Quebrar linhas e limitar visualização
     const linhas = conteudo.split('\n');
     const preview = linhas.slice(0, 4).join('<br>');
-    
+
     if (linhas.length > 4) {
         return preview + '<br><span class="ver-mais">... ver mais</span>';
     }
-    
+
     return preview;
 }
 
 function filtrarNotas(categoria) {
     categoriaAtiva = categoria;
-    
+
     // Atualizar botões ativos
     document.querySelectorAll('.btn-categoria').forEach(btn => {
         btn.classList.remove('active');
     });
     document.querySelector(`[data-categoria="${categoria}"]`).classList.add('active');
-    
+
     renderizarNotas();
 }
 
@@ -172,7 +285,7 @@ function salvarNota() {
     const formData = new FormData(document.getElementById('nota-form'));
     const data = Object.fromEntries(formData);
     data.importante = document.getElementById('importante').checked;
-    
+
     fetch('/api/notas/salvar', {
         method: 'POST',
         headers: {

@@ -99,19 +99,20 @@ body {
     gap: 20px;
 }
 
+/* Desktop Navigation Bar */
 .nav-links {
-    display: flex;
-    gap: 15px;
+    display: none;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
 .nav-links a {
     color: white;
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+    padding: 6px 10px;
+    border-radius: 4px;
     transition: background-color 0.3s;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     white-space: nowrap;
 }
 
@@ -120,11 +121,14 @@ body {
     background-color: rgba(255,255,255,0.2);
 }
 
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
+@media (min-width: 1024px) {
+    .nav-links {
+        display: flex;
+    }
+    
+    .hamburger-menu {
+        display: none;
+    }
 }
 
 /* Hamburger Menu */
@@ -196,8 +200,8 @@ body {
 }
 
 .menu-section {
-    margin-bottom: 20px;
-    padding-bottom: 15px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     border-bottom: 1px solid #eee;
 }
 
@@ -208,10 +212,10 @@ body {
 
 .menu-section h4 {
     color: #333;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    margin: 0 0 12px 0;
-    padding: 5px 0;
+    margin: 0 0 6px 0;
+    padding: 3px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -220,11 +224,11 @@ body {
     display: block;
     color: #555;
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    margin-bottom: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 2px;
     transition: all 0.2s ease;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .menu-section a:hover {
@@ -587,6 +591,96 @@ body {
     margin: 0 0 8px 0;
     color: #333;
     font-size: 0.9rem;
+}
+
+.categoria-valor {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.saldo-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.saldo-controls select {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.visualizacao-anual {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.visualizacao-anual.hidden {
+    display: none;
+}
+
+.controles-anuais {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.controles-anuais select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+
+.tabela-saldo-anual {
+    overflow-x: auto;
+}
+
+.saldo-anual-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.saldo-anual-table th,
+.saldo-anual-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.saldo-anual-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.saldo-anual-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.saldo-anual-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.saldo-positivo {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.saldo-negativo {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.saldo-zero {
+    color: #6c757d;
+    font-weight: 600;
 }
 
 .categoria-valor {

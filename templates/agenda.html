@@ -1,14 +1,186 @@
 {% extends "base.html" %}
 {% block title %}Agenda - Guarda Theo{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="page-header">
-        <h1>📝 Agenda Pessoal</h1>
-        <p>Agenda pessoal do Theo</p>
-    </div>
-    <div class="feature-placeholder">
-        <h3>📝 Agenda</h3>
-        <p>Em desenvolvimento - Sistema de agenda pessoal</p>
+<div class="page-header">
+    <h1>📝 Agenda Pessoal do Theo</h1>
+    <p>Espaço para anotações e compromissos pessoais</p>
+</div>
+
+<div class="agenda-container">
+    <div class="agenda-notebook">
+        <div class="notebook-header">
+            <h3>Minha Agenda</h3>
+            <div class="agenda-date">
+                <span id="current-date"></span>
+            </div>
+        </div>
+        
+        <div class="notebook-content">
+            <textarea id="agenda-content" class="notebook-text" placeholder="Escreva aqui seus compromissos, tarefas e anotações...
+
+• Escola
+• Amigos
+• Atividades
+• Lembretes
+
+Use este espaço como quiser! 😊"></textarea>
+        </div>
+        
+        <div class="notebook-footer">
+            <button onclick="salvarAgenda()" class="btn-save">💾 Salvar</button>
+            <span class="save-status" id="save-status"></span>
+        </div>
     </div>
 </div>
+
+<style>
+.agenda-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.agenda-notebook {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    border: 3px solid #667eea;
+}
+
+.notebook-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notebook-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.agenda-date {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.notebook-content {
+    padding: 30px;
+    background: #fafafa;
+    min-height: 500px;
+}
+
+.notebook-text {
+    width: 100%;
+    height: 450px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    resize: none;
+    background-image: linear-gradient(transparent 1.7rem, #e1e5e9 1.7rem);
+    background-size: 100% 1.8rem;
+    padding: 10px 20px;
+}
+
+.notebook-text::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.notebook-footer {
+    background: #f8f9fa;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.btn-save {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background: #218838;
+}
+
+.save-status {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.save-status.saved {
+    color: #28a745;
+}
+
+.save-status.saving {
+    color: #007bff;
+}
+</style>
+
+<script>
+let agendaData = '';
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Atualizar data atual
+    const now = new Date();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    
+    carregarAgenda();
+    
+    // Auto-save a cada 30 segundos
+    setInterval(salvarAgenda, 30000);
+});
+
+function carregarAgenda() {
+    // Aqui você pode implementar a carga da agenda do servidor
+    // Por enquanto, vamos usar localStorage
+    const saved = localStorage.getItem('agenda-theo');
+    if (saved) {
+        document.getElementById('agenda-content').value = saved;
+        agendaData = saved;
+    }
+}
+
+function salvarAgenda() {
+    const content = document.getElementById('agenda-content').value;
+    const status = document.getElementById('save-status');
+    
+    if (content === agendaData) return; // Não mudou
+    
+    status.textContent = 'Salvando...';
+    status.className = 'save-status saving';
+    
+    // Simular salvamento (aqui você implementaria a API)
+    setTimeout(() => {
+        localStorage.setItem('agenda-theo', content);
+        agendaData = content;
+        status.textContent = 'Salvo automaticamente';
+        status.className = 'save-status saved';
+        
+        setTimeout(() => {
+            status.textContent = '';
+            status.className = 'save-status';
+        }, 2000);
+    }, 500);
+}
+</script>
 {% endblock %}

@@ -57,7 +57,7 @@ function loadCalendarData() {
         .then(response => response.json())
         .then(data => {
             calendarData = data;
-            renderCalendar();
+            // Não chamar renderCalendar() aqui para evitar loop infinito
         })
         .catch(error => console.error('Error loading calendar data:', error));
 }
@@ -308,6 +308,27 @@ function setupContaEvents() {
     const btnNovaDespesa = document.getElementById('btn-nova-despesa');
     if (btnNovaDespesa) {
         btnNovaDespesa.addEventListener('click', openNovaDespesaModal);
+    }
+
+    // Annual view events
+    const btnVisualizacaoAnual = document.getElementById('btn-visualizacao-anual');
+    if (btnVisualizacaoAnual) {
+        btnVisualizacaoAnual.addEventListener('click', toggleVisualizacaoAnual);
+    }
+
+    const btnFecharAnual = document.getElementById('btn-fechar-anual');
+    if (btnFecharAnual) {
+        btnFecharAnual.addEventListener('click', fecharVisualizacaoAnual);
+    }
+
+    const filtroAnoAnual = document.getElementById('filtro-ano-anual');
+    if (filtroAnoAnual) {
+        filtroAnoAnual.addEventListener('change', updateVisualizacaoAnual);
+    }
+
+    const filtroMesAnual = document.getElementById('filtro-mes-anual');
+    if (filtroMesAnual) {
+        filtroMesAnual.addEventListener('change', updateVisualizacaoAnual);
     }
 
     // Modal events
@@ -726,6 +747,188 @@ function filterDespesas() {
     // For table view, we need to update the global data and re-render
     const originalData = despesasData;
     despesasData = filtered;
+    renderDespesasTabela();
+    despesasData = originalData;
+}
+
+function toggleVisualizacaoAnual() {
+    const visualizacao = document.getElementById('visualizacao-anual');
+    if (visualizacao.classList.contains('hidden')) {
+        visualizacao.classList.remove('hidden');
+        updateVisualizacaoAnual();
+    } else {
+        visualizacao.classList.add('hidden');
+    }
+}
+
+function fecharVisualizacaoAnual() {
+    const visualizacao = document.getElementById('visualizacao-anual');
+    visualizacao.classList.add('hidden');
+}
+
+function updateVisualizacaoAnual() {
+    const ano = document.getElementById('filtro-ano-anual').value;
+    const mesFiltro = document.getElementById('filtro-mes-anual').value;
+    
+    document.getElementById('ano-visualizacao').textContent = ano;
+    
+    // Calcular saldo por mês
+    const saldoPorMes = {};
+    const meses = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+    
+    // Inicializar meses
+    meses.forEach(mes => {
+        saldoPorMes[mes] = {
+            leonardo: 0,
+            taciana: 0,
+            diferenca: 0
+        };
+    });
+    
+    // Filtrar despesas do ano selecionado
+    const despesasAno = despesasData.filter(d => 
+        d.status === 'validado' && d.data.startsWith(ano)
+    );
+    
+    // Calcular totais por mês
+    despesasAno.forEach(despesa => {
+        const mes = despesa.data.substring(5, 7);
+        if (saldoPorMes[mes]) {
+            saldoPorMes[mes][despesa.pagador] += despesa.valor;
+        }
+    });
+    
+    // Calcular diferenças
+    Object.keys(saldoPorMes).forEach(mes => {
+        const dados = saldoPorMes[mes];
+        dados.diferenca = dados.leonardo - dados.taciana;
+    });
+    
+    // Filtrar por mês se selecionado
+    let mesesParaExibir = meses;
+    if (mesFiltro) {
+        mesesParaExibir = [mesFiltro];
+    }
+    
+    renderTabelaSaldoAnual(saldoPorMes, mesesParaExibir);
+    
+    // Atualizar resumo por categoria baseado no filtro
+    updateResumoCategoriasFiltrado(ano, mesFiltro);
+    
+    // Atualizar tabela de despesas baseado no filtro
+    filterDespesasPorAnoMes(ano, mesFiltro);
+}
+
+function renderTabelaSaldoAnual(saldoPorMes, mesesParaExibir) {
+    const container = document.getElementById('tabela-saldo-anual');
+    const nomesMeses = {
+        '01': 'Janeiro', '02': 'Fevereiro', '03': 'Março', '04': 'Abril',
+        '05': 'Maio', '06': 'Junho', '07': 'Julho', '08': 'Agosto',
+        '09': 'Setembro', '10': 'Outubro', '11': 'Novembro', '12': 'Dezembro'
+    };
+    
+    let html = `
+        <table class="saldo-anual-table">
+            <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Leonardo</th>
+                    <th>Taciana</th>
+                    <th>Diferença</th>
+                    <th>Quem Deve</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+    
+    mesesParaExibir.forEach(mes => {
+        const dados = saldoPorMes[mes];
+        const diferenca = dados.diferenca;
+        let quemDeve = '';
+        let classesDiferenca = '';
+        
+        if (diferenca > 0) {
+            quemDeve = 'Taciana deve a Leonardo';
+            classesDiferenca = 'saldo-positivo';
+        } else if (diferenca < 0) {
+            quemDeve = 'Leonardo deve a Taciana';
+            classesDiferenca = 'saldo-negativo';
+        } else {
+            quemDeve = 'Equilibrado';
+            classesDiferenca = 'saldo-zero';
+        }
+        
+        html += `
+            <tr>
+                <td><strong>${nomesMeses[mes]}</strong></td>
+                <td>${formatCurrency(dados.leonardo)}</td>
+                <td>${formatCurrency(dados.taciana)}</td>
+                <td class="${classesDiferenca}">${formatCurrency(Math.abs(diferenca))}</td>
+                <td>${quemDeve}</td>
+            </tr>
+        `;
+    });
+    
+    html += `
+            </tbody>
+        </table>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function updateResumoCategoriasFiltrado(ano, mes) {
+    const categorias = {};
+    
+    let despesasFiltradas = despesasData.filter(d => 
+        d.status === 'validado' && d.data.startsWith(ano)
+    );
+    
+    if (mes) {
+        despesasFiltradas = despesasFiltradas.filter(d => 
+            d.data.substring(5, 7) === mes
+        );
+    }
+    
+    despesasFiltradas.forEach(despesa => {
+        if (!categorias[despesa.categoria]) {
+            categorias[despesa.categoria] = 0;
+        }
+        categorias[despesa.categoria] += despesa.valor;
+    });
+
+    const resumoContainer = document.getElementById('resumo-categorias');
+    if (resumoContainer) {
+        const tituloFiltro = mes ? 
+            `📊 Resumo ${ano}/${mes} por Categoria` : 
+            `📊 Resumo ${ano} por Categoria`;
+        
+        resumoContainer.parentElement.querySelector('h3').textContent = tituloFiltro;
+        
+        resumoContainer.innerHTML = Object.entries(categorias)
+            .sort(([,a], [,b]) => b - a)
+            .map(([categoria, total]) => `
+                <div class="categoria-item">
+                    <h4>${capitalizeFirst(categoria)}</h4>
+                    <div class="categoria-valor">${formatCurrency(total)}</div>
+                </div>
+            `).join('');
+    }
+}
+
+function filterDespesasPorAnoMes(ano, mes) {
+    let despesasFiltradas = despesasData.filter(d => 
+        d.data.startsWith(ano)
+    );
+    
+    if (mes) {
+        despesasFiltradas = despesasFiltradas.filter(d => 
+            d.data.substring(5, 7) === mes
+        );
+    }
+    
+    const originalData = despesasData;
+    despesasData = despesasFiltradas;
     renderDespesasTabela();
     despesasData = originalData;
 }

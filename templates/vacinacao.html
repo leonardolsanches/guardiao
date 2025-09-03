@@ -75,6 +75,68 @@
     font-weight: 600;
 }
 
+.vacinas-principais {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.vacinas-principais h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 10px;
+}
+
+.tabela-vacinas {
+    overflow-x: auto;
+}
+
+.vacinas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.vacinas-table th,
+.vacinas-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.vacinas-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #28a745;
+}
+
+.vacinas-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.status-aplicada {
+    color: #28a745;
+    font-weight: 600;
+    background: #d4edda;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.status-pendente {
+    color: #856404;
+    font-weight: 600;
+    background: #fff3cd;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
 .empty-state {
     text-align: center;
     color: #666;
@@ -142,8 +204,98 @@
 </div>
 
 <div class="vacinacao-container">
+    <div class="vacinas-principais">
+        <h3>Calendário de Vacinação Básico</h3>
+        <div class="tabela-vacinas">
+            <table class="vacinas-table">
+                <thead>
+                    <tr>
+                        <th>Idade</th>
+                        <th>Vacina</th>
+                        <th>Proteção</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ao nascer</td>
+                        <td>BCG</td>
+                        <td>Tuberculose</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>2 meses</td>
+                        <td>Pentavalente (1ª dose)</td>
+                        <td>Difteria, Tétano, Coqueluche, Hepatite B, Haemophilus</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>2 meses</td>
+                        <td>VIP (1ª dose)</td>
+                        <td>Poliomielite</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>2 meses</td>
+                        <td>Pneumocócica (1ª dose)</td>
+                        <td>Pneumonia, Meningite</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>2 meses</td>
+                        <td>Rotavírus (1ª dose)</td>
+                        <td>Diarreia por Rotavírus</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>4 meses</td>
+                        <td>Pentavalente (2ª dose)</td>
+                        <td>Difteria, Tétano, Coqueluche, Hepatite B, Haemophilus</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>6 meses</td>
+                        <td>Pentavalente (3ª dose)</td>
+                        <td>Difteria, Tétano, Coqueluche, Hepatite B, Haemophilus</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>12 meses</td>
+                        <td>Tríplice Viral (1ª dose)</td>
+                        <td>Sarampo, Caxumba, Rubéola</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>15 meses</td>
+                        <td>DTP (1º reforço)</td>
+                        <td>Difteria, Tétano, Coqueluche</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>4 anos</td>
+                        <td>DTP (2º reforço)</td>
+                        <td>Difteria, Tétano, Coqueluche</td>
+                        <td><span class="status-aplicada">✓ Aplicada</span></td>
+                    </tr>
+                    <tr>
+                        <td>9 anos</td>
+                        <td>HPV (meninas)</td>
+                        <td>Papilomavírus Humano</td>
+                        <td><span class="status-pendente">Aguardando idade</span></td>
+                    </tr>
+                    <tr>
+                        <td>11 anos</td>
+                        <td>Meningocócica ACWY</td>
+                        <td>Meningite</td>
+                        <td><span class="status-pendente">Aguardando idade</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
     <div class="vacinas-grid" id="vacinas-grid">
-        <!-- Vacinas serão carregadas aqui -->
+        <!-- Vacinas adicionais serão carregadas aqui -->
     </div>
 </div>
 

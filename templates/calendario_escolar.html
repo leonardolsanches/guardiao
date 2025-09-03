@@ -1,14 +1,298 @@
 {% extends "base.html" %}
 {% block title %}Calendário Escolar - Guarda Theo{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="page-header">
-        <h1>📅 Calendário Escolar</h1>
-        <p>Calendário e eventos escolares</p>
+<div class="page-header">
+    <h1>📅 Calendário Escolar 2025</h1>
+    <p>Feriados e eventos importantes do ano letivo</p>
+</div>
+
+<div class="calendario-escolar-container">
+    <div class="ano-navigation">
+        <button class="btn btn-nav" onclick="changeYear(-1)">‹ 2024</button>
+        <h2 id="current-year">2025</h2>
+        <button class="btn btn-nav" onclick="changeYear(1)">2026 ›</button>
     </div>
-    <div class="feature-placeholder">
-        <h3>📅 Calendário Escolar</h3>
-        <p>Em desenvolvimento - Calendário com eventos escolares</p>
+    
+    <div class="calendario-anual" id="calendario-anual">
+        <!-- Meses serão gerados aqui -->
+    </div>
+    
+    <div class="legenda-escolar">
+        <h3>Legenda</h3>
+        <div class="legenda-items">
+            <div class="legenda-item">
+                <span class="cor-feriado"></span>
+                <span>Feriados Nacionais</span>
+            </div>
+            <div class="legenda-item">
+                <span class="cor-ferias"></span>
+                <span>Férias Escolares</span>
+            </div>
+            <div class="legenda-item">
+                <span class="cor-evento"></span>
+                <span>Eventos Escolares</span>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.calendario-escolar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ano-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.ano-navigation h2 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.calendario-anual {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.mes-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.mes-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.mes-calendario {
+    padding: 15px;
+}
+
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+.dia-semana-header {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+    padding: 5px;
+}
+
+.dias-mes {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.dia-mes {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dia-mes:hover {
+    background: #f0f0f0;
+}
+
+.dia-mes.outro-mes {
+    color: #ccc;
+}
+
+.dia-mes.feriado {
+    background: #ffebee;
+    color: #c62828;
+    font-weight: 600;
+}
+
+.dia-mes.ferias {
+    background: #fff3e0;
+    color: #ef6c00;
+    font-weight: 600;
+}
+
+.dia-mes.evento {
+    background: #e8f5e8;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.legenda-escolar {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.legenda-escolar h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.legenda-items {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legenda-item span:first-child {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.cor-feriado {
+    background: #ffebee;
+    border: 2px solid #c62828;
+}
+
+.cor-ferias {
+    background: #fff3e0;
+    border: 2px solid #ef6c00;
+}
+
+.cor-evento {
+    background: #e8f5e8;
+    border: 2px solid #2e7d32;
+}
+</style>
+
+<script>
+let currentYear = 2025;
+
+const feriados2025 = {
+    '2025-01-01': 'Confraternização Universal',
+    '2025-02-17': 'Carnaval',
+    '2025-02-18': 'Carnaval',
+    '2025-04-18': 'Sexta-feira Santa',
+    '2025-04-21': 'Tiradentes',
+    '2025-05-01': 'Dia do Trabalhador',
+    '2025-09-07': 'Independência do Brasil',
+    '2025-10-12': 'Nossa Senhora Aparecida',
+    '2025-11-02': 'Finados',
+    '2025-11-15': 'Proclamação da República',
+    '2025-12-25': 'Natal'
+};
+
+const ferias2025 = {
+    '2025-01-02': 'Férias de Verão',
+    '2025-01-03': 'Férias de Verão',
+    '2025-01-30': 'Férias de Verão',
+    '2025-01-31': 'Férias de Verão',
+    '2025-07-01': 'Férias de Inverno',
+    '2025-07-15': 'Férias de Inverno',
+    '2025-12-15': 'Férias de Verão',
+    '2025-12-31': 'Férias de Verão'
+};
+
+const eventos2025 = {
+    '2025-02-03': 'Início do Ano Letivo',
+    '2025-06-15': 'Festa Junina',
+    '2025-10-15': 'Dia dos Professores',
+    '2025-12-10': 'Formatura'
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderCalendarioAnual();
+});
+
+function changeYear(direction) {
+    currentYear += direction;
+    document.getElementById('current-year').textContent = currentYear;
+    renderCalendarioAnual();
+}
+
+function renderCalendarioAnual() {
+    const container = document.getElementById('calendario-anual');
+    const meses = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+    
+    container.innerHTML = meses.map((mes, index) => {
+        return renderMes(mes, index, currentYear);
+    }).join('');
+}
+
+function renderMes(nomeMes, mesIndex, ano) {
+    const firstDay = new Date(ano, mesIndex, 1).getDay();
+    const daysInMonth = new Date(ano, mesIndex + 1, 0).getDate();
+    
+    let diasHtml = '';
+    
+    // Dias vazios antes do primeiro dia
+    for (let i = 0; i < firstDay; i++) {
+        diasHtml += '<div class="dia-mes outro-mes"></div>';
+    }
+    
+    // Dias do mês
+    for (let dia = 1; dia <= daysInMonth; dia++) {
+        const dateStr = `${ano}-${String(mesIndex + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+        let classes = 'dia-mes';
+        let title = '';
+        
+        if (feriados2025[dateStr]) {
+            classes += ' feriado';
+            title = feriados2025[dateStr];
+        } else if (ferias2025[dateStr]) {
+            classes += ' ferias';
+            title = ferias2025[dateStr];
+        } else if (eventos2025[dateStr]) {
+            classes += ' evento';
+            title = eventos2025[dateStr];
+        }
+        
+        diasHtml += `<div class="${classes}" title="${title}">${dia}</div>`;
+    }
+    
+    return `
+        <div class="mes-card">
+            <div class="mes-header">${nomeMes}</div>
+            <div class="mes-calendario">
+                <div class="dias-semana">
+                    <div class="dia-semana-header">D</div>
+                    <div class="dia-semana-header">S</div>
+                    <div class="dia-semana-header">T</div>
+                    <div class="dia-semana-header">Q</div>
+                    <div class="dia-semana-header">Q</div>
+                    <div class="dia-semana-header">S</div>
+                    <div class="dia-semana-header">S</div>
+                </div>
+                <div class="dias-mes">
+                    ${diasHtml}
+                </div>
+            </div>
+        </div>
+    `;
+}
+</script>
 {% endblock %}

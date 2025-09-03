@@ -1,14 +1,264 @@
 {% extends "base.html" %}
 {% block title %}Localização - Guarda Theo{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="page-header">
-        <h1>📍 Localização</h1>
-        <p>Acompanhamento de localização do Theo</p>
+<div class="page-header">
+    <h1>📍 Localização do Theo</h1>
+    <p>Monitoramento e locais importantes</p>
+</div>
+
+<div class="localizacao-container">
+    <!-- Links Rápidos -->
+    <div class="links-rapidos">
+        <h3>🔗 Links Rápidos</h3>
+        <div class="links-grid">
+            <a href="https://www.google.com/maps/search/casa" target="_blank" class="link-card casa">
+                🏠 Ver Casa no Maps
+            </a>
+            <a href="https://www.google.com/maps/search/escola+próxima" target="_blank" class="link-card escola">
+                🏫 Escola no Maps
+            </a>
+            <a href="https://www.google.com/maps/search/hospital+infantil+próximo" target="_blank" class="link-card hospital">
+                🏥 Hospital no Maps
+            </a>
+            <a href="https://www.google.com/maps/search/farmácia+24h+próxima" target="_blank" class="link-card farmacia">
+                💊 Farmácia 24h
+            </a>
+        </div>
     </div>
-    <div class="feature-placeholder">
-        <h3>📍 Localização</h3>
-        <p>Em desenvolvimento - Sistema de tracking de localização</p>
+    
+    <!-- Mapa Incorporado -->
+    <div class="mapa-container">
+        <h3>🗺️ Mapa da Região</h3>
+        <div class="mapa-frame">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.296234567!2d-43.36789!3d-22.9068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDU0JzI0LjUiUyA0M8KwMjInMDQuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                width="100%"
+                height="400"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+    
+    <!-- Locais Salvos -->
+    <div class="locais-salvos">
+        <h3>📍 Locais Importantes</h3>
+        <div class="locais-lista">
+            <div class="local-item">
+                <div class="local-info">
+                    <h4>🏠 Casa</h4>
+                    <p>Endereço principal da família</p>
+                    <small>Rua Example, 123 - Bairro</small>
+                </div>
+                <div class="local-acoes">
+                    <a href="https://www.google.com/maps/search/casa" target="_blank" class="btn-maps">Ver no Maps</a>
+                </div>
+            </div>
+            
+            <div class="local-item">
+                <div class="local-info">
+                    <h4>🏫 Escola</h4>
+                    <p>Colégio do Theo</p>
+                    <small>Av. Educação, 456 - Centro</small>
+                </div>
+                <div class="local-acoes">
+                    <a href="https://www.google.com/maps/search/escola" target="_blank" class="btn-maps">Ver no Maps</a>
+                </div>
+            </div>
+            
+            <div class="local-item">
+                <div class="local-info">
+                    <h4>👨‍⚕️ Pediatra</h4>
+                    <p>Dr. Silva - Clínica Infantil</p>
+                    <small>Rua Saúde, 789 - Copacabana</small>
+                </div>
+                <div class="local-acoes">
+                    <a href="https://www.google.com/maps/search/pediatra" target="_blank" class="btn-maps">Ver no Maps</a>
+                </div>
+            </div>
+            
+            <div class="local-item">
+                <div class="local-info">
+                    <h4>👴 Avós Paternos</h4>
+                    <p>Casa dos avós</p>
+                    <small>Rua Família, 321 - Ipanema</small>
+                </div>
+                <div class="local-acoes">
+                    <a href="https://www.google.com/maps/search/avós" target="_blank" class="btn-maps">Ver no Maps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ferramentas de Localização -->
+    <div class="ferramentas">
+        <h3>🛠️ Ferramentas</h3>
+        <div class="ferramentas-grid">
+            <button onclick="obterLocalizacao()" class="ferramenta-btn">
+                📱 Minha Localização Atual
+            </button>
+            <a href="https://www.google.com/maps/search/posto+gasolina+próximo" target="_blank" class="ferramenta-btn">
+                ⛽ Postos Próximos
+            </a>
+            <a href="https://www.google.com/maps/search/supermercado+próximo" target="_blank" class="ferramenta-btn">
+                🛒 Supermercados
+            </a>
+            <a href="https://www.google.com/maps/dir/" target="_blank" class="ferramenta-btn">
+                🗺️ Calcular Rota
+            </a>
+        </div>
     </div>
 </div>
+
+<style>
+.localizacao-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.links-rapidos, .mapa-container, .locais-salvos, .ferramentas {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 25px;
+}
+
+.links-rapidos h3, .mapa-container h3, .locais-salvos h3, .ferramentas h3 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.link-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: transform 0.3s;
+}
+
+.link-card:hover {
+    transform: translateY(-2px);
+}
+
+.link-card.casa { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.link-card.escola { background: linear-gradient(135deg, #3498db, #2980b9); }
+.link-card.hospital { background: linear-gradient(135deg, #e67e22, #d35400); }
+.link-card.farmacia { background: linear-gradient(135deg, #27ae60, #229954); }
+
+.mapa-frame {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.locais-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.local-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.local-info h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.local-info p {
+    margin: 0 0 5px 0;
+    color: #666;
+}
+
+.local-info small {
+    color: #999;
+}
+
+.btn-maps {
+    background: #4285f4;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.btn-maps:hover {
+    background: #3367d6;
+}
+
+.ferramentas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.ferramenta-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.ferramenta-btn:hover {
+    background: #5a67d8;
+}
+
+@media (max-width: 768px) {
+    .local-item {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+function obterLocalizacao() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const url = `https://www.google.com/maps/@${lat},${lng},15z`;
+            window.open(url, '_blank');
+        }, function(error) {
+            alert('Não foi possível obter sua localização: ' + error.message);
+        });
+    } else {
+        alert('Geolocalização não é suportada por este navegador.');
+    }
+}
+</script>
 {% endblock %}

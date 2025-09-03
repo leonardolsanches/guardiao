@@ -10,6 +10,30 @@
 </div>
 
 <div class="consultas-container">
+    <!-- Calendário de Consultas -->
+    <div class="calendario-consultas">
+        <div class="calendar-header">
+            <button id="btn-prev-month-consultas" class="btn btn-nav">‹</button>
+            <h3 id="calendar-title-consultas"></h3>
+            <button id="btn-next-month-consultas" class="btn btn-nav">›</button>
+        </div>
+        
+        <div class="calendar-consultas">
+            <div class="calendar-header-days">
+                <div class="day-header">Dom</div>
+                <div class="day-header">Seg</div>
+                <div class="day-header">Ter</div>
+                <div class="day-header">Qua</div>
+                <div class="day-header">Qui</div>
+                <div class="day-header">Sex</div>
+                <div class="day-header">Sáb</div>
+            </div>
+            <div class="calendar-days" id="calendar-days-consultas">
+                <!-- Dias serão carregados aqui -->
+            </div>
+        </div>
+    </div>
+    
     <div class="consultas-grid" id="consultas-grid">
         <!-- Consultas serão carregadas aqui -->
     </div>
@@ -53,16 +77,88 @@
 
 <script>
 let consultas = [];
+let currentMonthConsultas = new Date().getMonth();
+let currentYearConsultas = new Date().getFullYear();
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('data_consulta').value = new Date().toISOString().split('T')[0];
     carregarConsultas();
+    setupCalendarioConsultas();
     
     document.getElementById('consulta-form').addEventListener('submit', function(e) {
         e.preventDefault();
         salvarConsulta();
     });
 });
+
+function setupCalendarioConsultas() {
+    document.getElementById('btn-prev-month-consultas').addEventListener('click', () => {
+        currentMonthConsultas--;
+        if (currentMonthConsultas < 0) {
+            currentMonthConsultas = 11;
+            currentYearConsultas--;
+        }
+        renderCalendarioConsultas();
+    });
+
+    document.getElementById('btn-next-month-consultas').addEventListener('click', () => {
+        currentMonthConsultas++;
+        if (currentMonthConsultas > 11) {
+            currentMonthConsultas = 0;
+            currentYearConsultas++;
+        }
+        renderCalendarioConsultas();
+    });
+    
+    renderCalendarioConsultas();
+}
+
+function renderCalendarioConsultas() {
+    const monthNames = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
+
+    document.getElementById('calendar-title-consultas').textContent = 
+        `${monthNames[currentMonthConsultas]} ${currentYearConsultas}`;
+
+    const firstDay = new Date(currentYearConsultas, currentMonthConsultas, 1).getDay();
+    const daysInMonth = new Date(currentYearConsultas, currentMonthConsultas + 1, 0).getDate();
+    const calendarDays = document.getElementById('calendar-days-consultas');
+
+    calendarDays.innerHTML = '';
+
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day other-month';
+        calendarDays.appendChild(dayElement);
+    }
+
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+
+        const dateStr = `${currentYearConsultas}-${String(currentMonthConsultas + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        // Check if there's a consultation on this day
+        const consultasDoDia = consultas.filter(c => c.data_consulta === dateStr);
+        
+        let consultasInfo = '';
+        if (consultasDoDia.length > 0) {
+            dayElement.classList.add('has-consulta');
+            consultasInfo = `<div class="consulta-marker">${consultasDoDia.length} consulta(s)</div>`;
+        }
+
+        dayElement.innerHTML = `
+            <div class="day-number">${day}</div>
+            ${consultasInfo}
+        `;
+
+        calendarDays.appendChild(dayElement);
+    }
+}
 
 function carregarConsultas() {
     fetch('/api/consultas')
@@ -90,6 +186,9 @@ function renderizarConsultas() {
             ${consulta.observacoes_consulta ? `<div class="observacoes">${consulta.observacoes_consulta}</div>` : ''}
         </div>
     `).join('');
+    
+    // Atualizar calendário após carregar consultas
+    renderCalendarioConsultas();
 }
 
 function abrirModalConsulta() {
@@ -146,6 +245,45 @@ function formatarData(data) {
     color: #666;
     font-style: italic;
     margin-bottom: 10px;
+}
+
+.calendario-consultas {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.calendar-consultas {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.calendar-consultas .calendar-day {
+    min-height: 60px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.calendar-consultas .calendar-day:hover {
+    background-color: #f8f9fa;
+}
+
+.calendar-consultas .calendar-day.has-consulta {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.consulta-marker {
+    font-size: 0.7rem;
+    color: #2196f3;
+    font-weight: 600;
+    margin-top: 2px;
 }
 
 .observacoes {
